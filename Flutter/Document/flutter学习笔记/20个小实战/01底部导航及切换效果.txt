@@ -1,0 +1,146 @@
+1、首先从主入口文件main.dart进入我们自定义的主要组件BottomNavigationWidget；
+   MaterialApp组件的theme属性用于设置我们的主题皮肤等，这里选择ThemeData.light；
+	ThemeData.light
+	ThemeData.dart() 
+	ThemeData.fallback()
+	主要用上面两个
+	
+2、创建BottomNaviagtionWidget组件；
+注意：extends继承 StatefulWidget
+StatefullWidget具有可变状态state的窗口组件，调整state的值，可以改变页面显示的内容
+
+3、实现BottomNavigationWidget组件，使用Scaffold脚手架，创建bottomNavigationBar;
+
+4、lib下创建pages目录，分别创建home\email\pages\airplay四个组件，用于显示底部导航切换时显示的内容；
+
+5、bottomNavigationWidget中导入四个组件（import），在组件初始化的时候使用一个集合将四个组件都添加进去；
+
+6、创建当前索引变量_currentIndex，使用的地方有两个，一个是页面主要 内容显示 使用集合+索引来确定，第二个是底部导航被选中状态确定 属性currentIndex:_currentIndex
+
+7、点击时setState一下，将flutter自带的index赋值给_currentIndex；
+
+
+代码：
+main.dart
+import 'package:flutter/material.dart';
+import 'bottom_navigation_widget.dart';
+
+
+void main()=>runApp(new MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter bottomNavigationBar',
+      theme: ThemeData.light(),
+      home: BottomNavigationWidget(),
+    );
+  }
+}
+
+bottom_navigation_widget.dart
+import 'package:flutter/material.dart';
+import 'pages/home_screen.dart';
+import 'pages/email_screen.dart';
+import 'pages/pages_screen.dart';
+import 'pages/airplay_screen.dart';
+
+class BottomNavigationWidget extends StatefulWidget {
+  _BottomNavigationWidgetState createState() => _BottomNavigationWidgetState();
+}
+
+class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
+  // 内部使用的在命名时最前端加下划线
+  final _BottomNavigationColor = Colors.blue;
+  int _currentIndex = 0;// 当前的索引
+  List<Widget> list = List();
+
+  // 重写初始状态
+  @override
+  void initState(){
+    print('initState()');
+    // 第一次初始化此组件的时候，执行初始化方法，将所有页面组件加入list
+    // 建造者模式，..add完后还是返回的list，可以直接继续..add
+    list
+      ..add(HomeScreen())
+      ..add(EmailScreen())
+      ..add(PagesScreen())
+      ..add(AirplayScreen());
+      super.initState();// 这句话是执行父类的初始化的方法
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body:list[_currentIndex],// 页面主要显示的内容
+      bottomNavigationBar:// 页面底部导航显示的内容
+       BottomNavigationBar(
+         items: [
+           BottomNavigationBarItem(
+             icon:Icon(
+               Icons.home,
+               color: _BottomNavigationColor,
+             ),
+             title: Text(
+               'Home',
+               style:TextStyle(color: _BottomNavigationColor)
+             )
+           ),
+           BottomNavigationBarItem(
+             icon:Icon(
+               Icons.email,
+               color: _BottomNavigationColor,
+             ),
+             title: Text(
+               'Email',
+               style:TextStyle(color: _BottomNavigationColor)
+             )
+           ),
+           BottomNavigationBarItem(
+             icon:Icon(
+               Icons.pages,
+               color: _BottomNavigationColor,
+             ),
+             title: Text(
+               'Pages',
+               style:TextStyle(color: _BottomNavigationColor)
+             )
+           ),
+           BottomNavigationBarItem(
+             icon:Icon(
+               Icons.airplay,
+               color: _BottomNavigationColor,
+             ),
+             title: Text(
+               'Airplay',
+               style:TextStyle(color: _BottomNavigationColor)
+             )
+           ),
+         ],
+         currentIndex: _currentIndex,// 底部导航的索引，表明哪个导航被选中
+         onTap: (int index){  // 这里的index是flutter自带的
+           setState(() {
+            _currentIndex = index; 
+           });
+           print('$_currentIndex');// 打印当前索引状态
+         },
+       ),
+    );
+  }
+}
+
+home_screen.dart
+import 'package:flutter/material.dart';
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('HOME'),),
+      body: Center(
+        child: Text('HOME'),
+      ),
+    );
+  }
+}

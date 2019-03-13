@@ -1,0 +1,39 @@
+Card组件（卡片组件）
+使用场景：收获地址、通讯录卡片、优惠卡
+
+代码：
+var card = new Card(
+      child: Column(
+        children: <Widget>[
+          ListTile(
+            title: Text(
+              '吉林省吉林市昌邑区',
+              style:
+              TextStyle(fontWeight: FontWeight.w500),// 加粗
+              ),
+            subtitle: Text('技术胖：13666666666'),// 子标题
+            leading: new Icon(Icons.account_box,color: Colors.lightBlue,),
+          ),
+          new Divider(),// 分割线
+          ListTile(
+            title: Text(
+              '上海市浦东新区浦三路3058号',
+              style:
+              TextStyle(fontWeight: FontWeight.w500),// 加粗
+              ),
+            subtitle: Text('万志远：13613623154'),// 子标题
+            leading: new Icon(Icons.account_box,color: Colors.lightBlue,),
+          ),
+          new Divider(),
+          ListTile(
+            title: Text(
+              '北京市海淀区',
+              style:
+              TextStyle(fontWeight: FontWeight.w500),// 加粗
+              ),
+            subtitle: Text('习大大：13688888888'),// 子标题
+            leading: new Icon(Icons.account_box,color: Colors.lightBlue,),// 小图标
+          ),
+        ],
+      ),
+    );

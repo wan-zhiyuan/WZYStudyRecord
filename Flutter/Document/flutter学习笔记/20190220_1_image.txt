@@ -1,0 +1,84 @@
+1、Image图片组件
+	使用：
+		new Image.XXXXXX
+	Image.asset 加载资源图片
+	Image.network 加载网络资源图片
+	Image.file 加载本地图片
+	Image.memory 加载Uint8List资源图片
+
+	child:new Image.network(
+		'src',
+		fit:XXXXX
+	),
+	fit属性：控制图片的拉伸和挤压，根据图片的父容器
+	BoxFit.fill:全图显示，图片会被拉伸，并充满父容器。
+
+	BoxFit.contain:全图显示，显示原比例，可能会有空隙。
+
+	BoxFit.cover：显示可能拉伸，可能裁切，充满（图片要充满整个容器，还不变形）。
+
+	BoxFit.fitWidth：宽度充满（横向充满），显示可能拉伸，可能裁切。
+
+	BoxFit.fitHeight ：高度充满（竖向充满）,显示可能拉伸，可能裁切。
+
+	BoxFit.scaleDown：效果和contain差不多，但是此属性不允许显示超过源图片大小，可小不可大。
+
+	child:new Image.network(
+		'src',
+		color:Colors.XXXXX,
+		colorBlendMode:BlendMode.XXXX,
+	),
+	colorBlendMode属性：图片混合模式，和color属性配合使用，能让图片改变颜色。
+	✳效果太多了，需要的时候自己尝试。
+
+	child:new Image.network(
+		'src',
+		repeat: ImageRepeat.repeat,
+	),
+	repeat属性：图片重复，横向还是纵向看具体的设置
+	ImageRepeat.repeat : 横向和纵向都进行重复，直到铺满整个画布。
+
+	ImageRepeat.repeatX: 横向重复，纵向不重复。
+
+	ImageRepeat.repeatY：纵向重复，横向不重复。
+
+源码：
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title: 'Text Widget',
+      home: Scaffold( // 主体的脚手架，可以在里面搭建主体
+        body: Center(
+          child: Container(
+            // child: Text('Hello World!'),
+            child: new Image.network(
+              'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1550644125341&di=722bc9a481f2e11f95e85fbc16ef7093&imgtype=0&src=http%3A%2F%2Fimg18.3lian.com%2Fd%2Ffile%2F201709%2F21%2Ff498e01633b5b704ebfe0385f52bad20.jpg',
+              // fit: BoxFit.contain,// 不拉伸图片，图片比例不变形，充满容器
+              // fit:BoxFit.fill,// 拉伸，图片比例变形，充满容器
+              // fit: BoxFit.fitWidth,// 横向必须充满，图片不拉伸，可能会裁切图片
+              // fit: BoxFit.fitHeight,// 纵向必须充满，图片不拉伸，可能会裁切图片
+              // fit: BoxFit.cover,// 图片充满容器，可能会裁切图片
+              // fit: BoxFit.scaleDown,// 不改变图片大小
+              // color: Colors.lightGreen,
+              // colorBlendMode: BlendMode.hardLight
+              // repeat: ImageRepeat.noRepeat,
+              repeat: ImageRepeat.repeat,// 横向和纵向都重复，直到铺满画布容器
+              // repeat: ImageRepeat.repeatX,// X轴，也就是横向未填满区域重复图片
+              // repeat: ImageRepeat.repeatY,// Y轴，也就是纵向未填满区域重复图片
+            ),
+            width: 500.0,
+            height: 200.0,
+            color: Colors.lightBlue,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+

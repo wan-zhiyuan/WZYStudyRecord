@@ -1,0 +1,28 @@
+第一种：
+Navigator.push(
+			context,
+			MaterialPageRoute(
+				builder:(context)=> XXXXwidget页面
+			),
+),
+
+builder:(context)=> XXXXwidget页面
+
+等同于：
+builder:(BuildContext context){
+	return XXXXwidget页面;
+}
+因为只有一句话，所以可以使用=>的写法
+
+
+第二种：
+Navigator.of(context).push(MaterialPageRoute(
+	里面内容与第一种相同
+)),
+
+
+第三种：页面返回
+Navigator.pop(context),
+
+第四种：页面返回带参数
+Navigator.pop(context,'参数'),

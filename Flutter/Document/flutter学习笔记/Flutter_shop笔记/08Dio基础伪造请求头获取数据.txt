@@ -1,0 +1,66 @@
+class HomePage extends StatefulWidget {
+// https://time.geekbang.org/serv/v1/column/newAll
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String showText = '';// 请求回的数据
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+       child: Scaffold(
+         appBar: AppBar(title: Text('请求远程数据'),),
+         body: SingleChildScrollView(
+           child: Column(
+             children: <Widget>[
+               RaisedButton(
+                 onPressed: _jike,
+                 child: Text('请求数据'),
+               ),
+              Text(showText)
+             ],
+           ),
+         ),
+       ),
+    );
+  }
+
+  // 调用方法
+  void _jike(){
+    print('开始向极客时间请求数据....................');
+    getHttp().then((val){
+      setState(() {
+        showText = val['data'].toString();
+      });
+    });
+  }
+
+  // 请求方法
+  Future getHttp() async{
+    try {
+      Response response;
+      Dio dio = new Dio();
+      // 设置请求头
+      dio.options.headers =httpHeaders;
+      response = await dio.get("https://time.geekbang.org/serv/v1/column/newAll");
+      print(response);
+      return response.data;
+    } catch (e) {
+      return print(e);
+    }
+  }
+}
+
+// 请求头每次使用时需要重新请求复制
+const httpHeaders = {
+  'Accept': 'application/json, text/plain, */*',
+'Accept-Encoding': 'gzip, deflate, br',
+'Accept-Language': 'zh-CN,zh;q=0.9',
+'Connection': 'keep-alive',
+'Content-Length': '0',
+'Cookie': '_ga=GA1.2.223723578.1552293386; _gid=GA1.2.2021159955.1552293386; GCID=b8ba4f3-cc3631c-94c4baf-aa8818f-cd; GCESS=BAMEgyOGXAEE9ckVAAQEAC8NAAwBAQoEAAAAAAYEtUMcYwgBAwcER9dPOQsCBAAFBAAAAAACBIMjhlwJAQE-; _gat=1; Hm_lvt_022f847c4e3acd44d4a2481d9187f1e6=1552293386,1552294715,1552294787; SERVERID=3431a294a18c59fc8f5805662e2bd51e|1552294795|1552293385; Hm_lpvt_022f847c4e3acd44d4a2481d9187f1e6=1552294795',
+'Host': 'time.geekbang.org',
+'Origin': 'https://time.geekbang.org',
+'Referer': 'https://time.geekbang.org/',
+'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
+};

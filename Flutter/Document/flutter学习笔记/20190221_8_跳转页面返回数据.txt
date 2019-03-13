@@ -1,0 +1,89 @@
+﻿跳转页面返回数据
+
+异步请求怎么写？
+
+复习：row布局怎么用 column怎么用 
+	Navigator.push怎么用，Navigator.pop怎么用
+	Snackbar怎么用？
+
+
+
+代码：
+import 'package:flutter/material.dart';
+
+void main(){
+  runApp(
+    new MaterialApp(
+      title: '返回传参练习',
+      home: new FirstPage(),
+    ),
+  );
+}
+
+class FirstPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('去找小姐姐要电话'),),
+      body: Center(
+        child:new RouteButton(),// 跳转的按钮
+      ), 
+    );
+  }
+}
+
+class RouteButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      child: Text('去找小姐姐'),
+      onPressed: (){
+        _navigateToXiaoJieJie(context);
+      },
+    );
+  }
+
+  // 异步方法
+  _navigateToXiaoJieJie(BuildContext context) async{
+    final result =await Navigator.push(
+      context, 
+      MaterialPageRoute(
+        builder: (context)=>new XiaoJieJie(),
+      ));
+
+    Scaffold.of(context).showSnackBar(SnackBar(content:Text('$result')));
+  }
+}
+
+class XiaoJieJie extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('找到小姐姐了'),),
+      body: Center(
+        child: new Column(
+        children: <Widget>[
+          new RaisedButton(
+            child: Text('大长腿小姐姐'),
+            onPressed: (){
+              Navigator.pop(context,'大长腿小姐姐：13566669999');
+            },
+          ),
+          new RaisedButton(
+            child: Text('小蛮腰小姐姐'),
+            onPressed: (){
+              Navigator.pop(context,'小蛮腰小姐姐：180XXXX1111');
+            },
+          ),
+          new RaisedButton(
+            child: Text('最美的小姐姐'),
+            onPressed: (){
+              Navigator.pop(context,'最美的小姐姐：15900959857');
+            },
+          ),
+        ],
+      ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,116 @@
+应用场景：
+	微信朋友圈添加多张照片效果。
+
+主要应用组件：
+	Wrap组件 GestureDetector组件
+
+mediaQuery媒体查询获取屏幕的宽高
+
+final width = MediaQuery.of(context).size.width;
+final height = MediaQuery.of(context).size.height;
+
+初始化一个list<Widget>用于放如流式布局中的内容
+初始状态，默认在list中添加一个手势操作组件GestureDetector,
+里面设置一个onTap，点击时直接改变state状态，setState()
+创建一个照片组件放入list
+
+注：一些没有触发时间的组件，比如Padding、Conyainer、Center组件，当他们需要触发时间的时候，可以在他们外层增加一个GestureDetector组件。
+
+
+
+代码：
+main.dart
+import 'package:flutter/material.dart';
+import 'warp_demo.dart';
+
+void main()=>runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData.light(),
+      home: WarpDemo(),
+    );
+  }
+}
+
+warp_demo.dart
+import 'package:flutter/material.dart';
+
+class WarpDemo extends StatefulWidget {
+
+  _WarpDemoState createState() => _WarpDemoState();
+}
+
+class _WarpDemoState extends State<WarpDemo> {
+  List<Widget> list;
+
+  void initState() { 
+    super.initState();
+    list = List<Widget>()..add(buildAddButton());
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;// 媒体查询，获取屏幕宽度
+    final height = MediaQuery.of(context).size.height;// 媒体查询，获取屏幕的高度
+
+    return Scaffold(
+       appBar: AppBar(title: Text('Wrap流式布局'),),
+       body: Center(
+         child: Opacity(// 透明度效果
+           opacity: 0.8,
+           child: Container(
+            width: width,
+            height: height/2,
+            color: Colors.grey,
+            child: Wrap(
+              children: list,
+              spacing: 26.0,
+            ),
+           ),
+         ),
+       ),
+    );
+  }
+
+  // 添加一个手势操作的组件
+  Widget buildAddButton(){
+    return GestureDetector(
+      onTap: (){
+        if(list.length<9){
+          setState(() {
+            list.insert(list.length-1, buildPhoto());
+          });
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: 80.0,
+          height: 80.0,
+          color: Colors.black54,
+          child: Icon(Icons.add),
+        ),
+      ),
+    );
+  }
+
+  // 添加一个照片组件
+  Widget buildPhoto(){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: 80.0,
+        height: 80.0,
+        color: Colors.amber,
+        child: Center(
+          child: Text('照片'),
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,107 @@
+1、根目录\lib\main.dart文件是整个Flutter项目的主文件；
+2、如何导包，例：import 'package:flutter/material.dart';
+	导入的内容可以是flutter提供的库包、或者是下载的第三方库包插件、或者是自己写的.dart文件；
+	导入时必须加分号；
+3、material.dart是一个UI库；
+4、void main() => runApp(xxxx());
+	程序的主函数，也叫做入口方法
+5、dart里面一切皆对象；runApp(MyApp())中的内容是一个类 也是一个对象
+6、创建MyApp()类
+	创建
+	class MyApp extends StatelessWidget{
+
+	}
+	再重构(Widget为部件)
+	@override
+	Widget build(BuildContext context){
+
+	}
+	再返回一个Widget(注意MaterialApp()控件如何使用)
+	return MaterialApp(
+		title:'Welcome to Flutter',// 标题
+		home：Scaffold(	// Scaffold可以理解为布局的容器，里面可以放多个布局
+			appBar:AppBar(
+				title:Text('Welcome to Flutter'),
+			),
+			body：Center(
+				child:Text("Hello World"),
+			),
+		),// home主要的内容
+	);
+	MaterialApp使用中当前设置两个属性：title标题、home主内容
+	appBar是顶部的栏目，使用中只使用了它的title属性
+	文本类型写法：Text('文本的内容')
+7、Flutter一切皆组建（Widget）
+8、StatelessWidget和StatefullWidget的区别;
+
+
+
+Text练习：
+new Text(
+              'Hello ibarrel~Hello ibarrel~Hello ibarrel~Hello ibarrel~Hello ibarrel~Hello ibarrel~Hello ibarrel~',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 25.0,
+                color: Color.fromARGB(255, 255, 100, 0),
+                decoration:TextDecoration.underline,
+              ),
+            ),
+1、Text Widget使用
+	textAlign 文字对齐方式
+	属性 textAlign:TextAlign.center
+		 textAlign:TextAlign.left	文字靠左对齐
+		 textAlign:TextAlign.right	文字靠右对齐
+		 textAlign:TextAlign.start  文字开左对齐
+		 textAlign:TextAlign.end
+
+	overflow 超出长度的文字处理方式
+ 	属性 overflow:TextOverflow.ellipsis	尾部三点
+ 		 overflow:TextOverflow.clip		直接切除和显示一行效果类似
+ 		 overflow:TextOverflow.fade		产生一个从上至下的渐变
+
+ 	maxLines:1最大行数
+ 	属性 maxLines:1   最大行数为1行
+
+ 	style Text的样式（颜色大小等等）
+ 	属性 style(),
+ 		fontSize文字大小 输入的值使用浮点数
+ 		fontSize: 25.0,
+ 		color文字颜色	透明度 红黄蓝
+ 		color:Color.fromARGB(255,255,125,125),
+
+ 		decoration 装饰的样式，比如下划线，横线等
+ 		属性 decoration:TextDecoration.underline // 下划线
+
+ import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title: 'Text Widget',
+      home: Scaffold( // 主体的脚手架，可以在里面搭建主体
+        body: Center(
+          child: Text(
+            'Hello Widget!  非常喜欢前端，并且愿意为此奋斗一生，希望可以出1000集免费课程',
+            textAlign: TextAlign.left,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 25.0,// 字体大小
+              color: Color.fromARGB(255, 255, 125, 125),// 字体颜色
+              decoration: TextDecoration.underline,// 文字下划线  装饰物
+              decorationStyle: TextDecorationStyle.solid,// 下划线为实线 装饰的样式
+            ),
+            ),
+        ),
+      ),
+    );
+  }
+}
+
+
+

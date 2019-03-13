@@ -1,0 +1,313 @@
+﻿温故，重新打一遍main.dart的代码
+
+ListView列表
+
+1、ListView创建
+	scaffold(
+	appBar:new AppBar(title:new Text('xxxx'),),
+	body:new ListView(
+		children:<Widget>[
+
+		],
+	),
+	),
+2、ListView子项添加
+添加ListTile（瓦片）
+children:<Widget>[
+	new ListTile(
+		leading:new Icon	// 头部小图标
+		title:new Text		// 列表项主要文字
+	),
+	new ListTile(
+		leading:new Icon	// 头部小图标
+		title:new Text		// 列表项主要文字
+	),
+],
+添加图片列表（Image）
+children:<Widget>[
+	new Image.network('src'),
+	new Image.network('src'),
+	new Image.network('src'),
+	new Image.network('src'),
+],
+
+Icon组件的使用：new Icon(Icons.XXXXX)
+
+代码：
+body: new ListView(
+          children: <Widget>[
+            new ListTile(
+              leading: new Icon(Icons.perm_camera_mic),
+              title: new Text('perm_camera_mic'),
+            ),
+            new ListTile(
+              leading: new Icon(Icons.perm_contact_calendar),
+              title: new Text('perm_contact_calendar'),
+            ),
+            new ListTile(
+              leading: new Icon(Icons.add_call),
+              title: new Text('add_call'),
+            ),
+            new ListTile(
+              leading: new Icon(Icons.access_time),
+              title: new Text('access_time'),
+            ),
+            new Image.network('http://jspang.com/static/upload/20190102/9SpnvSzav06JfPUrVtc1hNu9.jpg'),
+            new Image.network('http://jspang.com/static/upload/20190102/9SpnvSzav06JfPUrVtc1hNu9.jpg'),
+            new Image.network('http://jspang.com/static/upload/20181213/pvA-e9vkrNiXVFUm6xXMO9zf.jpg'),
+            new Image.network('http://jspang.com/static/upload/20181213/pvA-e9vkrNiXVFUm6xXMO9zf.jpg'),
+            
+          ],
+        ),
+
+3、添加横向列表
+child:Container(
+	height:200.0,
+	child:new ListView(
+		scrollDirection:Axis.horizontal,
+		children:<Widget>[
+
+		],
+	),
+),
+注意点：ListView默认为纵向或纵向滚动
+设置横向属性：scrollDirection:Axis.horizontal,
+设置纵向属性：scrollDirection: Axis.vertical,
+
+4、组件化，优化代码，减少代码嵌套
+代码：
+// 组件化自己的List
+class MyList extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return ListView(
+              scrollDirection: Axis.horizontal,// ListView横向属性设置
+              children: <Widget>[
+                new Container(
+                  width: 180.0,
+                  color: Colors.lightBlue,
+                ),
+                new Container(
+                  width: 180.0,
+                  color: Colors.amber,
+                ),
+                new Container(
+                  width: 180.0,
+                  color: Colors.deepOrange,
+                ),
+                new Container(
+                  width: 180.0,
+                  color: Colors.deepPurple,
+                ),
+              ],
+    );
+  }
+}
+
+5、动态列表
+
+	dart语法中如何声明一个集合list？
+	var myList = List()		非固定长度的声明
+	var myList = List(1000) 固定长度的声明	
+	var myList = List<String>	固定类型的声明
+	var myList = [1,2,3]	对List直接赋值
+
+	new List<String>.generate(length, generator)
+
+	new List<String>.generate(1000, (i)=> "Item $i")
+	使用generate生成器对items进行赋值，集合长度1000，
+	generate方法传递两个参数，第一个参数是生成的个数，第二个是方法
+
+	MyApp类如何接受参数？
+	答案：MyApp构造函数
+	final List<String> items;
+	MyApp({Key key,@required this.items}):super(key:key);
+	@required意思是此参数是必要的
+
+	ListView使用参数动态创建子项
+	new ListView.builder(
+		itemCount: items.length,// 需要生成的条数
+		itemBuilder:(context,index){
+			renturn new ListTile(
+				title:new Text('${items[index]}'),
+			);
+		},
+	),
+	使用ListView的builder方法生成我们的动态列表
+	参数一：itemCount 生成的条数
+	参数二：itemBuilder 生成显示的每一项
+	itemBuilder:(context,index){
+		return new ListTile(
+			title:new Text('${items[index]}'),// 因为字符串是动态的所以需要4符号
+		);
+	}
+	因为我们传递了参数，所以这里需要传递上下文，index相当于我们的索引
+	获取items集合的第index项的值：items[index]
+
+
+	✳获取集合items中index位置的字符串值 并动态使用，写法如下：
+	new Text('${items[index]}'),
+
+	✳MyApp构造函数写法，传递一个集合items参数，写法如下：
+	final List<String> items;
+	MyApp({Key key,@required this.items}):super(key:key)；
+	✳构造函数的实际使用，如下：
+	MyApp(
+		items:new List<String>.generate(1000,(i)=>'Item $i')
+	),
+	将计数变量i的值 赋值 给Item $i(第i个item，i是可变的所以加$)
+
+
+代码：
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp(
+  items: new List<String>.generate(1000, (i)=> "Item $i")
+));
+
+class MyApp extends StatelessWidget{
+  
+  final List<String> items;
+  MyApp({Key key,@required this.items}):super(key:key);
+  
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title: "ibarrel Flutter Demo",
+      home: Scaffold( // 脚手架组件
+        appBar: new AppBar(title: new Text('Widget ListView'),),
+        body: new ListView.builder(
+          itemCount: items.length,// 需要生成的条数
+          // itemCount: 1000,
+          itemBuilder: (context,index){
+            return new ListTile(
+                title: new Text('${items[index]}'),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp(
+  
+));
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title: 'ibarrel Flutter Demo',
+      home: Scaffold(
+        appBar: new AppBar(
+          title: new Text('ListView Widget'),
+        ),
+        body: new MyList4(
+          // 传参
+          items: new List<String>.generate(1000, (i)=> "Item $i")
+        ),
+      ),
+    );
+  }
+}
+
+// 动态的ListView如何设置
+class MyList4 extends StatelessWidget{
+  
+  final List<String> items;
+  MyList4({Key key,@required this.items}):super(key:key);
+  
+  @override
+  Widget build(BuildContext context){
+    return ListView.builder(
+      itemCount: items.length,
+      itemBuilder: (context,index){
+        return new ListTile(
+          leading: new Icon(Icons.person_add),
+          title: new Text('${items[index]}'),
+        );
+      },
+    );
+  }
+}
+
+// 横向排列的ListView （与Center容器无关，主要设置scrollDirection: Axis.horizontal）
+class MyList3 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Center(
+      child: Container(
+        height: 300.0,
+        child: new ListView(
+          scrollDirection: Axis.horizontal,// 横向排列的列表设置
+          children: <Widget>[
+            new Container(
+              width: 200.0,
+              color: Colors.lightBlue,
+            ),
+            new Container(
+              width: 200.0,
+              color: Colors.redAccent,
+            ),
+            new Container(
+              width: 200.0,
+              color: Colors.yellowAccent,
+            ),
+            new Container(
+              width: 200.0,
+              color: Colors.pinkAccent,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// 纵向图片ListView
+class MyList2 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return ListView(
+      children: <Widget>[
+        new Image.network('http://jspang.com/static/myimg/dashangwx.jpg'),
+        new Image.network('http://jspang.com/static/myimg/dashangwx.jpg'),
+        new Image.network('http://jspang.com/static/myimg/dashangwx.jpg'),
+        new Image.network('http://jspang.com/static/myimg/dashangwx.jpg'),
+      ],
+    );
+  }
+}
+// 纵向小图标+标题ListView
+class MyList1 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return ListView(
+            children: <Widget>[
+            new ListTile(
+              leading: new Icon(Icons.account_circle),
+              title: new Text('Icons.account_circle'),
+            ),
+            new ListTile(
+              leading: new Icon(Icons.arrow_forward),
+              title: new Text('Icons.arrow_forward'),
+            ),
+            new ListTile(
+              leading: new Icon(Icons.account_circle),
+              title: new Text('Icons.account_circle'),
+            ),
+            new ListTile(
+              leading: new Icon(Icons.panorama_fish_eye),
+              title: new Text('Icons.panorama_fish_eye'),
+            ),
+          ],
+    );
+  }
+}
+
+
+

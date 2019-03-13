@@ -1,0 +1,98 @@
+1、首先在Container容器组件中写一个子组件显示文本Hello ibarrel
+	child: new Text('Hello ibarrel',style:TextStyle(fontSize:40.0)),
+2、Alignment属性，针对Container容器内child的对齐方式的，上中下分为top center bottom,左右分为left和right,
+bottomCenter:下部居中对齐。
+botomLeft: 下部左对齐。
+bottomRight：下部右对齐。
+center：纵横双向居中对齐。
+centerLeft：纵向居中横向居左对齐。
+centerRight：纵向居中横向居右对齐。
+topLeft：顶部左侧对齐。
+topCenter：顶部居中对齐。
+topRight： 顶部居左对齐
+3、宽高属性 背景颜色属性
+	width:500.0,
+	heigjt:400.0,
+	color:Colors.lightblue,
+child:Container(
+  child:new Text('Hello JSPang',style: TextStyle(fontSize: 40.0),),
+  alignment: Alignment.center,
+  width:500.0,
+  height:400.0,
+  color: Colors.lightBlue,
+),
+
+
+4、内边距属性 padding
+	padding: const EdgeInsets.all(10.0),
+	意思是设置Container的内边距是10，左右上下全部为10
+
+	padding: const EdgeInsets.fromLTRB(L,T,R,B),
+	LTRB分别代表左上右下
+5、外边距 margin
+	margin: const EdgeInsets.all(10.0)
+	意思是设置Container的外边距是10，左右上下全部为10
+
+	margin: const EdgeInsets.fromLTRB(L,T,R,B),
+
+6、修饰器属性 decoration
+	设置container的背景和边框，如果你设置了decoration，就不要再设置color属性了，因为这样会冲突。
+
+渐变背景：需要BoxDecoration类
+gradient 渐变属性
+	decoration:new BoxDecoration(
+    gradient:const LinearGradient(
+      colors:[Colors.lightBlue,Colors.greenAccent,Colors.purple]
+    )
+  ),
+  	LinearGradient线性渐变
+ border 边框属性
+ 	border:Border.all(width:2.0,color:Colors.red)
+
+ 	Border.all 表示所有边框
+ 	Border.lerp 表示
+ 	Border.merge 表示
+
+
+
+
+
+
+源码
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title: 'Text Widget',
+      home: Scaffold( // 主体的脚手架，可以在里面搭建主体
+        body: Center(
+          child: Container(
+            child: new Text('Hello ibarrel',style:TextStyle(fontSize:40.0)),
+            alignment: Alignment.topLeft,
+            width: 500.0,
+            height: 400.0,
+            // color: Colors.lightBlue,// Container的背景色
+            // padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.fromLTRB(10.0, 100.0, 0, 0),
+            margin: const EdgeInsets.fromLTRB(10.0, 10.0, 20.0, 0),
+            decoration: new BoxDecoration(
+              // gradient: const SweepGradient(
+              //   colors: [Colors.lightBlue,Colors.greenAccent,Colors.purple]
+              // ),// 扫描/梯度渲染
+              // gradient: const RadialGradient(
+              //   colors: [Colors.lightBlue,Colors.greenAccent,Colors.purple]
+              // ),// 径向(圆圈由内而外)渐变
+              gradient: const LinearGradient(
+                colors: [Colors.lightBlue,Colors.greenAccent,Colors.purple]// 放入一个颜色集合[]
+              ),// 线性渐变
+              border:Border.all(width: 5.0,color: Colors.red),// 边框
+            ),// 修饰器 边框背景等
+          ),
+        ),
+      ),
+    );
+  }

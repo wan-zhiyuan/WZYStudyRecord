@@ -1,0 +1,134 @@
+1、BottomAppBar（底部工具栏）的使用，相比于BottomNavigationBar（底部导航栏）来说，使用更加灵活；
+2、FAB（FloatingActionButton组件）的使用，
+Scaffold脚手架支持此组件，调用时使用floatingActionButton属性，
+使用floatingActionButtonLocation确定FAB放置的位置
+3、理解属性mainAxisSize和属性mainAxisAlignment的汉字，及可配置项的含义，具体可以看《Flutter水平和垂直布局详解》图片详解；
+4、动态子页面的使用技巧，页面组件根据不同的参数，绘制不同的页面展示，
+	底部导航不需要写四个不可变页面，而直接使用一个可变页面即可实现；
+
+
+代码：
+main.dart
+import 'package:flutter/material.dart';
+import 'bottom_appBar_demo.dart';
+
+void main() => runApp(new MyApp());
+
+class MyApp extends StatelessWidget {
+  final Widget child;
+
+  MyApp({Key key, this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo02',
+      // 自定义主题样本
+      theme: ThemeData(
+        primarySwatch: Colors.lightBlue,
+      ),
+      home: new BottomAppBarDemo(),
+    );
+  }
+}
+
+
+bottom_appBar_demo.dart
+import 'package:flutter/material.dart';
+import 'each_view.dart';
+
+class BottomAppBarDemo extends StatefulWidget {
+  final Widget child;
+
+  BottomAppBarDemo({Key key, this.child}) : super(key: key);
+
+  _BottomAppBarDemoState createState() => _BottomAppBarDemoState();
+}
+
+class _BottomAppBarDemoState extends State<BottomAppBarDemo> {
+  List<Widget> _eachView;
+  int _index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _eachView = List();
+    _eachView..add(EachView('Home'))..add(EachView('ibarrel'));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _eachView[_index],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (BuildContext context) {
+            return EachView('New Page');
+          }));
+        },
+        tooltip: 'ibarrel', // 按钮提示（长按时显示）
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.centerDocked, // FAB的位置放置
+      bottomNavigationBar: BottomAppBar(
+        // 底部工具栏，相比BottomNavigationBar底部导航栏更加灵活
+        color: Colors.lightBlue, // 整个底部工具栏的背景颜色
+        shape: CircularNotchedRectangle(), // 在矩形中间的圆形缺口，shape属性表示融合FAB时候的样式
+        child: Row(
+          // 这里可以放置很多类型的组件，可以自己设计
+          mainAxisSize: MainAxisSize
+              .max, // 相当于android中的match_parent属性；同理min相当于wrap_content
+          mainAxisAlignment: MainAxisAlignment.spaceAround, // 主轴上的排列方式，详情见学习笔记
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.home),
+              color: Colors.white, // 按钮图标颜色
+              onPressed: () {
+                setState(() {
+                  _index = 0;
+                });
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.airport_shuttle),
+              color: Colors.white, // 按钮图标颜色
+              onPressed: () {
+                setState(() {
+                  _index = 1;
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+each_view.dart
+
+import 'package:flutter/material.dart';
+
+class EachView extends StatefulWidget {
+    String _title;
+    EachView(this._title);// 构造函数
+  @override
+  _EachViewState createState() => _EachViewState();
+}
+
+class _EachViewState extends State<EachView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+       appBar: AppBar(title: Text(widget._title)),
+       body: Center(
+         child: Text(widget._title),
+       ),
+    );
+  }
+}

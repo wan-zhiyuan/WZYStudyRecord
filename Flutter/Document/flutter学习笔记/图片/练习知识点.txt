@@ -1,0 +1,13 @@
+异步方法使用
+跳转页面 FirstPage跳转 XiaoJieJie 页面
+返回参数，选择小姐姐后返回参数
+FirstPage页面 SnackBar显示
+内部方法记得使用下划线开头
+
+实现：
+FirstPage页面中有一个appBar和 一个RouteButton按钮，
+按钮主要作用跳转页面，
+跳转页面时需要异步等待，等待返回时获得结果，Snackbar显示结果
+
+小姐姐页面中有一个appBar和ige纵向列表，
+纵向列表显示多个小姐姐 凸起按钮

@@ -1,0 +1,132 @@
+主要使用的控件：
+ExpansionTile
+	参数：title、leading、backgroundColor、children、initiallyExpanded
+
+ExpansionTile Widget就是一个可以展开闭合的组件，常用的属性有如下几个。
+
+title:闭合时显示的标题，这个部分经常使用Text Widget。
+leading:标题左侧图标，多是用来修饰，让界面显得美观。
+backgroundColor: 展开时的背景颜色，当然也是有过度动画的，效果非常好。
+children: 子元素，是一个数组，可以放入多个元素。
+trailing ： 右侧的箭头，你可以自行替换但是我觉的很少替换，因为谷歌已经表现的很完美了。
+initiallyExpanded: 初始状态是否展开，为true时，是展开，默认为false，是不展开。
+
+
+代码：
+main.dart
+import 'package:flutter/material.dart';
+import 'expansion_tile.dart';
+
+void main()=>runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData.dark(),
+      home: ExpansionTileDemo(),
+    );
+  }
+}
+
+expansion_tile.dart
+import 'package:flutter/material.dart';
+
+class ExpansionTileDemo extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('ExpansionTileDemo'),),
+      body: Center(
+        child: ExpansionTile(// 可扩展的小瓦片
+          title: Text('Expansion Tile'),// 不展开时显示的文本
+          leading: Icon(Icons.ac_unit),// 标题左边的图标
+          backgroundColor: Colors.white12,// 展开后的背景颜色
+          children: <Widget>[
+            ListTile(
+              title: Text('list titl'),// 标题
+              subtitle: Text('subtitle'),// 子标题
+            ),
+          ],
+          initiallyExpanded: true,// 初始状态是否展开的设置，默认值为false
+        ),
+      ),
+    );
+  }
+}
+
+ExpansionPanelList 常用属性
+expansionCallback:点击和交互的回掉事件，有两个参数，第一个是触发动作的索引，第二个是布尔类型的触发值。
+children:列表的子元素，里边多是一个List数组
+
+代码：
+expansion_panel_list.dart
+import 'package:flutter/material.dart';
+
+class ExpansionPanelListDemo extends StatefulWidget {
+ 
+  _ExpansionPanelListDemoState createState() => _ExpansionPanelListDemoState();
+}
+
+class _ExpansionPanelListDemoState extends State<ExpansionPanelListDemo> {
+  
+  List<int> mList;
+  List<ExpandStateBean> expandStateList;
+  _ExpansionPanelListDemoState(){
+    mList = new List();
+    expandStateList = new List();
+    // for循环，给两个集合添加数据
+    for (var i = 0; i < 10; i++) {
+      mList.add(i);
+      expandStateList.add(ExpandStateBean(i,false));
+    }
+  }
+  
+  _setCurrentIndex(int index,isExpand){
+    setState(() {
+      expandStateList.forEach((item){// 遍历数组
+        if(item.index == index){// 如果遍历到了item位置与点击的index一致，则执行里面的方法
+          item.isOpen = !isExpand;// 对当前状态取反
+        }
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+       appBar: AppBar(title: Text('expansion panel list'),),
+       // ExpandsionPanelList必须放到可滚动的Widget下面
+       body: SingleChildScrollView(
+         child: ExpansionPanelList(
+           expansionCallback: (index,bol){// 回调方法
+            _setCurrentIndex(index, bol);
+           },
+           children: mList.map((index){
+            return ExpansionPanel(
+              headerBuilder: (context,isExpanded){
+                return ListTile(
+                  title: Text('This is No.$index'),
+                );
+              },
+              body: ListTile(
+                title: Text('expansion no.$index'),
+              ),
+              isExpanded: expandStateList[index].isOpen,
+            );
+           }).toList(),
+         ),
+       ),
+    );
+  }
+}
+
+// 申明一个控制打开和关闭状态的类
+class ExpandStateBean{
+  var isOpen;
+  var index;
+  ExpandStateBean(this.index,this.isOpen);
+}

@@ -1,0 +1,98 @@
+记得添加flutter_swiper库包
+
+
+
+import 'package:flutter/material.dart';
+import '../service/service_method.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'dart:convert';// 引入后可使用json
+
+// 根据请求的信息会改变页面显示的内容
+class HomePage extends StatefulWidget {
+
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  String homePageContent = '正在获取数据';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+       appBar: AppBar(title: Text('百姓生活+'),),
+       body: FutureBuilder(
+         future: getHomePageContent(),
+         builder: (context,snapshot){
+           if (snapshot.hasData) {
+             print(snapshot.data.toString());
+             var data = json.decode(snapshot.data.toString());// 获取data字段的数据
+             List<Map> swiper = (data['data']['slides'] as List).cast();
+             return Column(
+               children: <Widget>[
+                 SwiperDiy(swiperDataList: swiper,)
+               ],
+             );
+           } else {
+              return Center(
+                child: Text('加载中'),
+              );
+           }
+         },
+       ),
+    );
+  }
+}
+
+// 首页轮播组件编写
+class SwiperDiy extends StatelessWidget {
+  // 定义一个常量传递参数，重写构造方法
+  final List swiperDataList;
+  SwiperDiy({Key key,this.swiperDataList}):super(key:key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 333.0,
+      child: Swiper(
+        itemBuilder: (BuildContext context,int index){
+          return Image.network("${swiperDataList[index]['image']}",fit: BoxFit.fill,);
+        },
+        itemCount: 3,
+        pagination: new SwiperPagination(),
+        autoplay: true,// 自动轮播
+      ),
+    );
+  }
+}
+
+
+
+服务端请求方法
+service_method.dart
+
+import 'package:dio/dio.dart';
+import 'dart:async';
+import 'dart:io';
+import '../config/service_url.dart';
+
+// 所有与后台通讯的接口都写在此dart文件中
+
+// 获取HomePage首页主题内容
+Future getHomePageContent() async{
+  try {
+    print('开始获取首页数据..........');
+    Response response;
+    Dio dio = new Dio();
+    dio.options.contentType = ContentType.parse("application/x-www-form-urlencoded");
+    var formData = {'lon':'115.02932','lat':'35.76189'}; // 经纬度参数
+    response =await dio.post(servicePath['homePageContent'],data:formData);// 第一个参数url 第二个参数需要传递的数据
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('后端接口出现异常。');
+    }
+  } catch (e) {
+    return print('ERROR:==========>${e}');
+  }
+}

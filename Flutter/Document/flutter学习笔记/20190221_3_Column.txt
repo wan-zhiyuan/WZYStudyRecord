@@ -1,0 +1,28 @@
+垂直方向布局Column
+	垂直布局控件，能够将子组件垂直排列。
+
+1、Column默认居中对齐，对齐属性为：crossAxisAlignment
+	crossAxisAlignment:CrossAxisAlignment.start 居左对齐
+	crossAxisAlignment:CrossAxisAlignment.end 居右对齐
+	crossAxisAlignment.CrossAxisAlignment.center 居中对齐
+
+crossAxisAlignment、mainAxisAlignment
+cross表示cross轴，即副轴。
+main表示main轴，即主轴。
+	如果你使用的是row水平布局，水平就是主轴，垂直就是副轴
+	如果你使用的是column垂直布局，垂直就是主轴，水平就是副轴
+
+我如果想让中间区域变大，头尾都按照文字所占空间显示，可以使用Expanded属性试一试
+
+代码：
+body:Center(
+          child:Column(
+          crossAxisAlignment: CrossAxisAlignment.center,// crossAxisAlignment对齐方式 cross表示副轴
+          mainAxisAlignment:MainAxisAlignment.center,
+          children: <Widget>[
+            Text('I am ibarrel'),
+            Expanded(child:Text('My website is www.93999.com.cn'),),
+            Text('I love 葡萄酒'),
+          ],
+        ),
+        ),

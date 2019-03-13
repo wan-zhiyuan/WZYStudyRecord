@@ -1,0 +1,158 @@
+
+
+
+代码：
+main.dart
+import 'package:flutter/material.dart';
+import 'pages.dart';
+
+void main() => runApp(new MyApp());
+
+class MyApp extends StatelessWidget {
+  final Widget child;
+
+  MyApp({Key key, this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo02',
+      // 自定义主题样本
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: FirstPage(),
+    );
+  }
+}
+
+pages.dart
+import 'package:flutter/material.dart';
+import 'custom_route.dart';
+
+class FirstPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blue,
+      appBar:AppBar(
+        title: Text('FirstPage', style: TextStyle(fontSize: 36.0)),
+        elevation: 0.0,// 与底部body的融合情况，默认值是4.0
+        ),
+        body: Center(
+          child: MaterialButton(
+            child: Icon(
+              Icons.navigate_next,
+              color: Colors.white,
+              size: 64.0,
+            ),
+            onPressed: (){
+              Navigator.of(context).push(CustomRoute(new SecondPage()));
+            },
+          ),
+        ),
+    );
+  }
+}
+
+class SecondPage extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.pinkAccent,
+      appBar: AppBar(
+        title: Text('SecondPage', style: TextStyle(fontSize: 36.0)),
+        // appBar如果不设置背景颜色会和主题颜色一致，及Colors.blue
+        backgroundColor: Colors.pinkAccent,
+        elevation: 0.0,// 与底部body的融合情况，默认值是4.0，appBar底部的阴影效果大小
+        ),
+        body: Center(
+          child: MaterialButton(
+            child: Icon(
+              Icons.navigate_before,
+              color: Colors.white,
+              size: 64.0,
+            ),
+            onPressed: (){
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+    );
+  }
+}
+
+custom_route.dart 路由动画文件
+import 'package:flutter/material.dart';
+
+class CustomRoute extends PageRouteBuilder{
+  final Widget widget;
+
+  CustomRoute(this.widget)
+  :super(
+    transitionDuration:Duration(seconds:1),// 动画持续的时间
+    pageBuilder:(
+      BuildContext context,
+      Animation<double> animation1,
+      Animation<double> animation2,
+    ){
+      return widget;
+    },
+    transitionsBuilder:(
+      BuildContext context,
+      Animation<double> animation1,
+      Animation<double> animation2,
+      Widget child
+    ){
+      // 渐隐渐显的动画效果
+      // return FadeTransition(  // FadeTransition渐隐渐显过度效果
+      //   opacity:Tween(begin: 0.0,end: 1.0)
+      //   .animate(CurvedAnimation( // .animate动画样式，一般使用动画曲线组件CurvedAnimation
+      //     parent:animation1,
+      //     curve:Curves.fastOutSlowIn,// 动画曲线：快出慢近；设置动画节奏
+      //   )),
+      //   child: child,
+      // );
+      // 缩放的动画效果
+      // return ScaleTransition(
+      //   scale: Tween(begin: 0.0,end: 1.0).animate(CurvedAnimation(// 0.0到1.0 表示从没有缩放到有
+      //     parent: animation1,
+      //     curve: Curves.fastOutSlowIn,
+      //   )),
+      //   child: child,
+      // );
+
+      // 旋转+缩放的动画效果
+      // return RotationTransition(
+      //   turns: Tween(begin: 0.0,end: 1.0)
+      //   .animate(CurvedAnimation(
+      //     parent:animation1,
+      //     curve:Curves.fastOutSlowIn
+      //   )),
+      //   child: ScaleTransition(
+      //     scale: Tween(begin: 0.0,end: 1.0)
+      //     .animate(CurvedAnimation(
+      //       parent:animation1,
+      //       curve: Curves.fastOutSlowIn 
+      //       )),
+      //       child: child,
+      //   ),
+      // );
+
+      // 左右滑动路由动画
+      return SlideTransition(
+        position: Tween<Offset>(
+          begin: Offset(-1.0, 0.0),
+          end: Offset(0.0, 0.0)
+        )
+        .animate(CurvedAnimation(
+          parent: animation1,
+          curve: Curves.fastOutSlowIn,
+        )),
+        child: child,
+      );
+    }
+  );
+
+}

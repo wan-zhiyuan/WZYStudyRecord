@@ -1,0 +1,67 @@
+页面跳转 页面返回
+
+1、RaisedButton组件（突起按钮组件）
+child: RaisedButton(  // 突起的按钮组件
+          child: Text('查看商品详情页'),// 按钮文本
+          onPressed: (){));
+          },
+        ),
+child:可以放入容器，图标，文字
+onPressed:点击事件的响应，一般会调用Navigator组件
+
+2、跳转和返回
+跳转
+	Navigator.push(context, MaterialPageRoute(
+		builder: (context)=> new XXXXXX(),
+	));
+context 上下文
+MaterialPageRoute() 路由组件
+
+返回
+	Navigate.pop(context),
+
+代码:
+import 'package:flutter/material.dart';
+
+void main(){
+  runApp(MaterialApp(
+    title: '导航演示01',
+    home:new FirstScreen(),
+  ));
+}
+
+class FirstScreen extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(title: Text('导航页面'),),
+      body: Center(
+        child: RaisedButton(  // 突起的按钮组件
+          child: Text('查看商品详情页'),// 按钮文本
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context)=> new SecondScreen(),
+            ));
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(title: Text('商品详情页'),),
+      body: Center(
+        child: RaisedButton(
+          child: Text("返回"),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+  }
+}
