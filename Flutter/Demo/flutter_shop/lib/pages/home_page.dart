@@ -3,6 +3,7 @@ import '../service/service_method.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'dart:convert';// 引入后可使用json
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // 根据请求的信息会改变页面显示的内容
 class HomePage extends StatefulWidget {
@@ -133,10 +134,19 @@ class LeaderPhone extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: InkWell(
-        onTap: (){},
+        onTap: _launchURL,
         child: Image.network(leaderImage),
       ),
     );
+  }
+
+  void _launchURL() async{
+    String url = 'tel'+leaderPhone;
+    if (await canLaunch(url)) {// 判断此url是否可用合法,符合四个原则
+      await launch(url);
+    } else {
+      throw 'url不能进行访问，异常';
+    }
   }
 }
 
