@@ -19,6 +19,11 @@ Flutter开源APP https://itsallwidgets.com/
 简书 - 闲鱼技术 https://www.jianshu.com/u/cf5c0e4b1111
   
 
+Awesome Flutter
+包含很多Flutter库、工具和教程
+
+
+
 网络请求
  
 
