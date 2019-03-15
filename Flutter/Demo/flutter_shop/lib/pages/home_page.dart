@@ -45,15 +45,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
             return SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  SwiperDiy(
-                    swiperDataList: swiper,
-                  ), // 首页轮播组件
-                  TopNavigator(
-                    navigatorList: navigatorList,
-                  ), // 导航组件
-                  AdBanner(
-                    adPicture: adPicture,
-                  ), // 广告组件
+                  SwiperDiy(swiperDataList: swiper,), // 首页轮播组件
+                  TopNavigator(navigatorList: navigatorList,), // 导航组件
+                  AdBanner(adPicture: adPicture,), // 广告组件
                   LeaderPhone(
                     leaderImage: leaderImage,
                     leaderPhone: leaderPhone,
@@ -182,7 +176,7 @@ class LeaderPhone extends StatelessWidget {
   }
 }
 
-//商品推荐类
+//商品推荐
 class Recommend extends StatelessWidget {
   final List recommendList;
 
@@ -210,7 +204,7 @@ class Recommend extends StatelessWidget {
     return InkWell(
       onTap: (){},
       child: Container(
-        height: ScreenUtil().setHeight(380),
+        height: ScreenUtil().setHeight(330),
         width: ScreenUtil().setWidth(250),
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
@@ -231,7 +225,7 @@ class Recommend extends StatelessWidget {
               ),
               ),
           ],
-        ),
+        ), 
       ),
     );
   }
@@ -239,7 +233,7 @@ class Recommend extends StatelessWidget {
   //横向列表方法
   Widget _recommedList(){
       return Container(
-        height: ScreenUtil().setHeight(330),
+        height: ScreenUtil().setHeight(350),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: recommendList.length,
@@ -253,7 +247,7 @@ class Recommend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenUtil().setHeight(380),
+      height: ScreenUtil().setHeight(420),
       margin: EdgeInsets.only(top: 10.0),
       child: Column(
         children: <Widget>[
