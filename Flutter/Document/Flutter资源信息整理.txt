@@ -1,29 +1,28 @@
-״̬������
+路由
 flutter_redux
 flutter_bloc
 https://javiercbk.github.io/json_to_dart/
 
-������API
+API
 http://wanandroid.com/blog/show/2
 https://github.com/jokermonn/-Api
-https://mp.weixin.qq.com/s/HCxJ8u-y5CVbQjXHDuj93g	�����
+https://mp.weixin.qq.com/s/HCxJ8u-y5CVbQjXHDuj93g
 
-iconsͼ��鿴
+icons图标
 http://materialdesignicons.com
 
-�ֲ����flutter_swiper
+轮播组件flutter_swiper
 https://github.com/best-flutter/flutter_swiper/blob/master/README-ZH.md
 
-��Ļ���䷽��flutter_screenutil
+flutter_screenutil
 https://m.qlchat.com/wechat/page/topic-simple-video?topicId=2000003742578086&byhand=1
 
-url���urk_launcher
-  �������ƶ�ƽ̨������URL��Flutter�����������IOS��Androidƽ̨�������Դ���ҳ�������ʼ��������Բ���绰
+url组件urk_launcher
 https://github.com/flutter/plugins/tree/master/packages/url_launcher
 
 
-��Ƭ���ñ���С�ؼ�
+卡片表单
 https://github.com/codegrue/card_settings
 
-�ٲ���
+瀑布流
 https://github.com/letsar/flutter_staggered_grid_view
