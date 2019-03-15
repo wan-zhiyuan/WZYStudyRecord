@@ -1,29 +1,29 @@
-×´Ì¬¹ÜÀí£º
+×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 flutter_redux
 flutter_bloc
 https://javiercbk.github.io/json_to_dart/
 
-¿ª·¢µÄAPI
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½API
 http://wanandroid.com/blog/show/2
 https://github.com/jokermonn/-Api
-https://mp.weixin.qq.com/s/HCxJ8u-y5CVbQjXHDuj93g	ºèÑóµÄ
+https://mp.weixin.qq.com/s/HCxJ8u-y5CVbQjXHDuj93g	ï¿½ï¿½ï¿½ï¿½ï¿½
 
-iconsÍ¼±ê²é¿´
+iconsÍ¼ï¿½ï¿½é¿´
 http://materialdesignicons.com
 
-ÂÖ²¥×é¼şflutter_swiper
+ï¿½Ö²ï¿½ï¿½ï¿½ï¿½flutter_swiper
 https://github.com/best-flutter/flutter_swiper/blob/master/README-ZH.md
 
-ÆÁÄ»ÊÊÅä·½°¸flutter_screenutil
+ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ä·½ï¿½ï¿½flutter_screenutil
 https://m.qlchat.com/wechat/page/topic-simple-video?topicId=2000003742578086&byhand=1
 
-url²å¼şurk_launcher
-  ÓÃÓÚÔÚÒÆ¶¯Æ½Ì¨ÖĞÆô¶¯URLµÄFlutter²å¼ş£¬ÊÊÓÃÓÚIOSºÍAndroidÆ½Ì¨¡£Ëû¿ÉÒÔ´ò¿ªÍøÒ³£¬·¢ËÍÓÊ¼ş£¬»¹¿ÉÒÔ²¦´òµç»°
+urlï¿½ï¿½ï¿½urk_launcher
+  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½Æ½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½URLï¿½ï¿½Flutterï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IOSï¿½ï¿½AndroidÆ½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ç»°
 https://github.com/flutter/plugins/tree/master/packages/url_launcher
 
 
-¿¨Æ¬ÉèÖÃ±íµ¥Ğ¡¿Ø¼ş
+ï¿½ï¿½Æ¬ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½Ğ¡ï¿½Ø¼ï¿½
 https://github.com/codegrue/card_settings
 
-ÆÙ²¼Á÷
+ï¿½Ù²ï¿½ï¿½ï¿½
 https://github.com/letsar/flutter_staggered_grid_view
