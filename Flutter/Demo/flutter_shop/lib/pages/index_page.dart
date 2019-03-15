@@ -33,7 +33,7 @@ class _IndexPageState extends State<IndexPage> {
     ),
   ];
   // 创建数组，存放所有页面，也可以在initState()中添加
-  final List tabBodies = [
+  final List<Widget> tabBodies = [
     HomePage(),
     CategoryPage(),
     CartPage(),
@@ -72,7 +72,10 @@ class _IndexPageState extends State<IndexPage> {
           });
          },
        ),
-       body: currentPage,
+       body: IndexedStack(
+         index: currentIndex,
+         children: tabBodies,
+       ),
     );
   }
 }

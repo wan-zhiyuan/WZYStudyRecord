@@ -10,7 +10,17 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
+  
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void initState() { 
+    super.initState();
+    print('1111111');
+  }
+  
   String homePageContent = '正在获取数据';
 
   @override
@@ -26,12 +36,11 @@ class _HomePageState extends State<HomePage> {
             print(snapshot.data.toString());
             var data = json.decode(snapshot.data.toString()); // 获取data字段的数据
             List<Map> swiper = (data['data']['slides'] as List).cast();
-            List<Map> navigatorList =
-                (data['data']['category'] as List).cast(); // 类别列表
-            String adPicture =
-                data['data']['advertesPicture']['PICTURE_ADDRESS']; // 广告图片
+            List<Map> navigatorList = (data['data']['category'] as List).cast(); // 类别列表
+            String adPicture = data['data']['advertesPicture']['PICTURE_ADDRESS']; // 广告图片
             String leaderImage = data['data']['shopInfo']['leaderImage'];
             String leaderPhone = data['data']['shopInfo']['leaderPhone'];
+            List<Map> recommednList = (data['data']['recommend'] as List).cast();
 
             return SingleChildScrollView(
               child: Column(
@@ -48,7 +57,8 @@ class _HomePageState extends State<HomePage> {
                   LeaderPhone(
                     leaderImage: leaderImage,
                     leaderPhone: leaderPhone,
-                  )
+                  ),
+                  Recommend(recommendList: recommednList,),// 商品推荐
                 ],
               ),
             );
@@ -119,8 +129,9 @@ class TopNavigator extends StatelessWidget {
       height: ScreenUtil().setHeight(320),
       padding: EdgeInsets.all(3.0),
       child: GridView.count(
+        physics: NeverScrollableScrollPhysics(),// 禁止GridView滚动设置
         crossAxisCount: 5, // 设置一行为5个
-        padding: EdgeInsets.all(5.0),
+        padding: EdgeInsets.all(4.0),
         children: navigatorList.map((item) {
           return _gridViewItemUI(context, item);
         }).toList(),
@@ -199,13 +210,13 @@ class Recommend extends StatelessWidget {
     return InkWell(
       onTap: (){},
       child: Container(
-        height: ScreenUtil().setHeight(330),
+        height: ScreenUtil().setHeight(380),
         width: ScreenUtil().setWidth(250),
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border(
-            left: BorderSide(width: 0.5,color: Colors.black12)
+            left: BorderSide(width: 1.0,color: Colors.black12)
           ),
         ),
         child: Column(
@@ -226,11 +237,30 @@ class Recommend extends StatelessWidget {
   }
 
   //横向列表方法
+  Widget _recommedList(){
+      return Container(
+        height: ScreenUtil().setHeight(330),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: recommendList.length,
+          itemBuilder: (context,index){
+            return _item(index);
+          },
+        ),
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: child,
+      height: ScreenUtil().setHeight(380),
+      margin: EdgeInsets.only(top: 10.0),
+      child: Column(
+        children: <Widget>[
+          _titleWidget(),
+          _recommedList(),
+        ],
+      ),
     );
   }
 }
