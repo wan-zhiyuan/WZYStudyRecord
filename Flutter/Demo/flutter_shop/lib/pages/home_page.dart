@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
             return SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  SwiperDiy(swiperDataList: swiper,), // 首页轮播组件
+                  SwiperDiy(swiperDataList: swiper,), // 页面顶部轮播组件
                   TopNavigator(navigatorList: navigatorList,), // 导航组件
                   AdBanner(adPicture: adPicture,), // 广告组件
                   LeaderPhone(

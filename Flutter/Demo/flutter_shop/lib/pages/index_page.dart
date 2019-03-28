@@ -53,6 +53,7 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
+    // 初始化设计稿尺寸
     ScreenUtil.instance =ScreenUtil(width:750,height: 1334)..init(context);
     // print('设备像素密度：${ScreenUtil.pixelRatio}');
     // print('设备的高：${ScreenUtil.screenHeight}');
