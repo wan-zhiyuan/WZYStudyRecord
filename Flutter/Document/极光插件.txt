@@ -1,0 +1,5 @@
+极光IM插件 https://github.com/jpush/jmessage-flutter-plugin
+
+极光大数据 https://github.com/jpush/janalytics-flutter-plugin
+
+极光推送 https://github.com/jpush/jpush-flutter-plugin
