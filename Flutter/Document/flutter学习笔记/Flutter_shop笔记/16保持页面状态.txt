@@ -1,0 +1,11 @@
+flutter为了保持页面状态，需要使用AutomaticKeepAliveClientMixin这个Mixin
+用法：
+1、使用的页面必须时StatefulWidget；
+2、在控制页面切换的导航页面，需要使用PageView和IndexedStack;
+	body: IndexedStack(
+		index:currentIndex,
+		children: tabBodies,
+	)
+
+
+3、重写wantKeepAlive方法，返回true；

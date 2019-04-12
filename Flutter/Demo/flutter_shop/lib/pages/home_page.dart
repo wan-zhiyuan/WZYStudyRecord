@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../service/service_method.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'dart:convert'; // 引入后可使用json
+import 'dart:convert'; // 引入后可使用json，包含简单的json编码器和解码器
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   bool get wantKeepAlive => true;
 
   @override
-  void initState() { 
+  void initState() { //页面加载时执行
     super.initState();
     print('1111111');
   }
@@ -25,12 +25,13 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
 
   @override
   Widget build(BuildContext context) {
+    var formData = {'lon':'115.02932','lat':'35.76189'}; // 经纬度参数
     return Scaffold(
       appBar: AppBar(
         title: Text('百姓生活+'),
       ),
       body: FutureBuilder(
-        future: getHomePageContent(),
+        future: request('homePageContent', formData),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             print(snapshot.data.toString());
@@ -41,6 +42,13 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
             String leaderImage = data['data']['shopInfo']['leaderImage'];
             String leaderPhone = data['data']['shopInfo']['leaderPhone'];
             List<Map> recommednList = (data['data']['recommend'] as List).cast();
+            String floor1Title = data['data']['floor1Pic']['PICTURE_ADDRESS'];// 楼层标题1
+            String floor2Title = data['data']['floor2Pic']['PICTURE_ADDRESS'];// 楼层标题2
+            String floor3Title = data['data']['floor3Pic']['PICTURE_ADDRESS'];// 楼层标题3
+            List<Map> floor1 = (data['data']['floor1'] as List).cast();// 楼层1商品数据
+            List<Map> floor2 = (data['data']['floor2'] as List).cast();// 楼层1商品数据
+            List<Map> floor3 = (data['data']['floor3'] as List).cast();// 楼层1商品数据
+
 
             return SingleChildScrollView(
               child: Column(
@@ -53,6 +61,13 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                     leaderPhone: leaderPhone,
                   ),
                   Recommend(recommendList: recommednList,),// 商品推荐
+                  FloorTitle(picture_address: floor1Title,),// 楼层1标题
+                  FloorContent(floorGoodsList: floor1,),// 楼层1商品
+                  FloorTitle(picture_address: floor2Title,),// 楼层2标题
+                  FloorContent(floorGoodsList: floor2,),// 楼层2商品
+                  FloorTitle(picture_address: floor3Title,),// 楼层3标题
+                  FloorContent(floorGoodsList: floor3,),// 楼层3商品
+                  HotGoods(),
                 ],
               ),
             );
@@ -210,7 +225,7 @@ class Recommend extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border(
-            left: BorderSide(width: 1.0,color: Colors.black12)
+            left: BorderSide(width: 1.0,color: Colors.black12)//虚拟机不支持0.5线宽的设置
           ),
         ),
         child: Column(
@@ -258,4 +273,103 @@ class Recommend extends StatelessWidget {
     );
   }
 }
+
+//楼层标题(多个楼层可复用)
+class FloorTitle extends StatelessWidget {
+  final String picture_address;
+
+  FloorTitle({Key key,this.picture_address}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: Image.network(picture_address),
+    );
+  }
+}
+
+//楼层商品列表（多个楼层可复用）
+class FloorContent extends StatelessWidget {
+  final List floorGoodsList;
+
+  FloorContent({Key key, this.floorGoodsList}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          _firstRow(),
+          _otherGoods(),
+        ],
+      ),
+    );
+  }
+
+  //前三个商品的组合的布局
+  Widget _firstRow(){
+    return Row(
+      children: <Widget>[
+        _goodsItem(floorGoodsList[0]),
+        Column(children: <Widget>[
+          _goodsItem(floorGoodsList[1]),
+          _goodsItem(floorGoodsList[2]),
+        ],)
+      ],
+    );
+  }
+
+  //其他商品组合的布局
+  Widget _otherGoods(){
+    return Row(
+      children: <Widget>[
+        _goodsItem(floorGoodsList[3]),
+        _goodsItem(floorGoodsList[4]),
+      ],
+    );
+  }
+
+  //每个商品的子项
+  Widget _goodsItem(Map goods){
+    return Container(
+      width: ScreenUtil().setWidth(375),
+      child: InkWell(//为了此控件可以有事件响应，故使用InkWel控件
+        onTap: (){print('点击了楼层商品');},
+        child: Image.network(goods['image']),
+      ),
+    );
+  }
+}
+
+//火爆专区
+class HotGoods extends StatefulWidget {
+  
+  @override
+  _HotGoodsState createState() => _HotGoodsState();
+}
+
+class _HotGoodsState extends State<HotGoods> {
+
+  @override
+  void initState() {
+    super.initState();
+    var formPage=1;
+    request('homePageBelowContent',formPage).then((val){//使用的url记得要与service_url.dart文件中的拼写一致
+      print(val);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('iBarrel'),
+    );
+  }
+}
+
+
+
+
+
 

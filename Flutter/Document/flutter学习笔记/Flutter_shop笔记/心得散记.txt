@@ -1,0 +1,6 @@
+项目框架中:
+config文件夹专门存放配置文件
+	httpHeaders.dart管理请求的所有头部信息
+	service_url管理所有接口
+pages文件夹放所有页面
+service文件夹放所有数据接口读取文件，就是使用接口请求数据的方法
