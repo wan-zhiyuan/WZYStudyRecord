@@ -12,12 +12,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   
+  int page=1;//翻页的页标
+  List<Map> hotGoodsList=[];//火爆商品列表
+
   @override
   bool get wantKeepAlive => true;
 
   @override
   void initState() { //页面加载时执行
     super.initState();
+    _getHotGoods();//获取火爆专区的商品
     print('1111111');
   }
   
@@ -31,7 +35,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
         title: Text('百姓生活+'),
       ),
       body: FutureBuilder(
-        future: request('homePageContent', formData),
+        future: request('homePageContent', formData:formData),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             print(snapshot.data.toString());
@@ -67,21 +71,98 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                   FloorContent(floorGoodsList: floor2,),// 楼层2商品
                   FloorTitle(picture_address: floor3Title,),// 楼层3标题
                   FloorContent(floorGoodsList: floor3,),// 楼层3商品
-                  HotGoods(),
+                  _hotGoods(),
                 ],
               ),
             );
           } else {
             return Center(
-              child: Text(
-                '加载中',
-              ),
+              child: Text('加载中.....',),
             );
           }
         },
       ),
     );
   }
+  
+  
+  void _getHotGoods(){
+    var formData = {'page':page};
+    request('homePageBelowContent',formData:formData).then((val){
+      var data=json.decode(val.toString());
+      List<Map> newGoodList = (data['data'] as List).cast();
+      setState(() {
+       hotGoodsList.addAll(newGoodList);//将新获取的列表数据全部加入到存放火爆商品的列表里
+       page++;// 页面+1
+      });
+    });
+  }
+
+  Widget hotTile = Container(
+    margin: EdgeInsets.only(top: 10.0),//距离上组件10
+    padding:EdgeInsets.all(5.0),
+    alignment: Alignment.center,//居中对齐
+    color:Colors.transparent,//设置背景色魏透明色
+    child: Text('火爆专区'),
+  );
+
+  //火爆专区子项
+  Widget _wrapList(){
+    if(hotGoodsList.length!=0){
+      print('存在火爆商品列表');
+      //将list包装成widget再放入list中
+       List<Widget> listWidget = hotGoodsList.map((val){
+          return InkWell(
+            onTap:(){print('点击了火爆商品');},
+            child: 
+            Container(
+              width: ScreenUtil().setWidth(372),
+              color:Colors.white,
+              padding: EdgeInsets.all(5.0),
+              margin:EdgeInsets.only(bottom:3.0),
+              child: Column(
+                children: <Widget>[
+                  Image.network(val['image'],width: ScreenUtil().setWidth(375),),
+                  Text(
+                    val['name'],
+                    maxLines: 1,
+                    overflow:TextOverflow.ellipsis ,
+                    style: TextStyle(color:Colors.pink,fontSize: ScreenUtil().setSp(26)),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text('￥${val['mallPrice']}'),
+                      Text(
+                        '￥${val['price']}',
+                        style: TextStyle(color:Colors.black26,decoration: TextDecoration.lineThrough),
+                      )
+                    ],
+                  )
+                ],
+              ), 
+            )
+          );
+      }).toList();
+      return Wrap(//流式布局
+        spacing: 2,//两列
+        children: listWidget,//数据
+      );
+    }else{
+      return Text(' ');
+    }
+  }
+
+  Widget _hotGoods(){
+    return Container(
+      child:Column(
+        children:<Widget>[
+          hotTile,
+          _wrapList(),
+        ],
+      ),
+    );
+  }
+
 }
 //首页轮播组件编写
 class SwiperDiy extends StatelessWidget {
@@ -355,7 +436,7 @@ class _HotGoodsState extends State<HotGoods> {
   void initState() {
     super.initState();
     var formPage=1;
-    request('homePageBelowContent',formPage).then((val){//使用的url记得要与service_url.dart文件中的拼写一致
+    request('homePageBelowContent',formData:formPage).then((val){//使用的url记得要与service_url.dart文件中的拼写一致
       print(val);
     });
   }
