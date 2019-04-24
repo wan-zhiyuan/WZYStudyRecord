@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../service/service_method.dart';
+import 'dart:convert';//引入后可使用json
 
 class CategoryPage extends StatelessWidget {
 

@@ -4,6 +4,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'dart:convert'; // 引入后可使用json，包含简单的json编码器和解码器
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 // 根据请求的信息会改变页面显示的内容
 class HomePage extends StatefulWidget {
@@ -15,13 +16,15 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   int page=1;//翻页的页标
   List<Map> hotGoodsList=[];//火爆商品列表
 
+  GlobalKey<RefreshFooterState> _footerkey = new GlobalKey<RefreshFooterState>();
+
   @override
   bool get wantKeepAlive => true;
 
   @override
   void initState() { //页面加载时执行
     super.initState();
-    _getHotGoods();//获取火爆专区的商品
+    // _getHotGoods();//获取火爆专区的商品//添加上拉加载后，此处获取数据获取注释
     print('1111111');
   }
   
@@ -38,7 +41,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
         future: request('homePageContent', formData:formData),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data.toString());
+            // print(snapshot.data.toString());
             var data = json.decode(snapshot.data.toString()); // 获取data字段的数据
             List<Map> swiper = (data['data']['slides'] as List).cast();
             List<Map> navigatorList = (data['data']['category'] as List).cast(); // 类别列表
@@ -54,8 +57,19 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
             List<Map> floor3 = (data['data']['floor3'] as List).cast();// 楼层1商品数据
 
 
-            return SingleChildScrollView(
-              child: Column(
+            return EasyRefresh(
+              //定义上拉刷新widget的样式
+              refreshFooter: ClassicsFooter(
+                key: _footerkey,//注意此项一定要创建
+                bgColor: Colors.white,//背景颜色
+                textColor: Colors.pink,//文字颜色
+                moreInfoColor: Colors.pink,
+                showMore: true,
+                noMoreText: '',
+                moreInfo: '加载中',//加载中显示的文字
+                loadReadyText: '上拉加载...',//加载前显示的文字
+              ),
+              child:ListView(
                 children: <Widget>[
                   SwiperDiy(swiperDataList: swiper,), // 页面顶部轮播组件
                   TopNavigator(navigatorList: navigatorList,), // 导航组件
@@ -74,6 +88,19 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                   _hotGoods(),
                 ],
               ),
+              loadMore: ()async {
+                print('开始加载更多......');
+                var formData = {'page':page};
+                await request('homePageBelowContent',formData:formData).then((val){
+                  var data=json.decode(val.toString());
+                  List<Map> newGoodList = (data['data'] as List).cast();
+                  setState(() {
+                    print('page:${page}');
+                  hotGoodsList.addAll(newGoodList);//将新获取的列表数据全部加入到存放火爆商品的列表里
+                  page++;// 页面+1
+                  });
+                });
+              },
             );
           } else {
             return Center(
@@ -85,13 +112,14 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
     );
   }
   
-  
+  //获取所有火爆专区的商品（所有内部方法命名都已下划线开头）
   void _getHotGoods(){
     var formData = {'page':page};
     request('homePageBelowContent',formData:formData).then((val){
       var data=json.decode(val.toString());
       List<Map> newGoodList = (data['data'] as List).cast();
       setState(() {
+        print('page:${page}');
        hotGoodsList.addAll(newGoodList);//将新获取的列表数据全部加入到存放火爆商品的列表里
        page++;// 页面+1
       });
@@ -102,39 +130,42 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
     margin: EdgeInsets.only(top: 10.0),//距离上组件10
     padding:EdgeInsets.all(5.0),
     alignment: Alignment.center,//居中对齐
-    color:Colors.transparent,//设置背景色魏透明色
+    color:Colors.transparent,//设置背景色为透明色
     child: Text('火爆专区'),
   );
 
-  //火爆专区子项
+  //火爆专区子项(流式布局的list)
   Widget _wrapList(){
     if(hotGoodsList.length!=0){
-      print('存在火爆商品列表');
+      // print('存在火爆商品列表');
       //将list包装成widget再放入list中
-       List<Widget> listWidget = hotGoodsList.map((val){
+       List<Widget> listWidget = hotGoodsList.map((val){//map循环,val相当于每一项
           return InkWell(
             onTap:(){print('点击了火爆商品');},
             child: 
             Container(
-              width: ScreenUtil().setWidth(372),
-              color:Colors.white,
-              padding: EdgeInsets.all(5.0),
+              width: ScreenUtil().setWidth(372),//设置每一项商品的宽度
+              color:Colors.white,//设置背景色
+              padding: EdgeInsets.all(5.0),//设置内边距
               margin:EdgeInsets.only(bottom:3.0),
               child: Column(
                 children: <Widget>[
+                  //1、商品图片
                   Image.network(val['image'],width: ScreenUtil().setWidth(375),),
+                  //2、商品名称
                   Text(
                     val['name'],
                     maxLines: 1,
-                    overflow:TextOverflow.ellipsis ,
+                    overflow:TextOverflow.ellipsis ,//超出部分显示“...”
                     style: TextStyle(color:Colors.pink,fontSize: ScreenUtil().setSp(26)),
                   ),
+                  //3、商品价格
                   Row(
                     children: <Widget>[
                       Text('￥${val['mallPrice']}'),
                       Text(
                         '￥${val['price']}',
-                        style: TextStyle(color:Colors.black26,decoration: TextDecoration.lineThrough),
+                        style: TextStyle(color:Colors.black26,decoration: TextDecoration.lineThrough),//删除线效果
                       )
                     ],
                   )
@@ -143,7 +174,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
             )
           );
       }).toList();
-      return Wrap(//流式布局
+      return Wrap(//流式布局Wrap
         spacing: 2,//两列
         children: listWidget,//数据
       );
@@ -152,11 +183,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
     }
   }
 
+  //火爆专区（内部组件）
   Widget _hotGoods(){
     return Container(
       child:Column(
         children:<Widget>[
-          hotTile,
+          hotTile,//标题
           _wrapList(),
         ],
       ),
