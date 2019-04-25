@@ -1,8 +1,0 @@
-●隐藏状态栏：引入'package:flutter/services.dart',
-??SystemChrome.setEnabledSystemUIOverlays([]); //隐藏
-SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);//恢复
-●package get慢（撞墙）
-新增环境变量?
-FLUTTER_STORAGE_BASE_URL? ==>?https://storage.flutter-io.cn
-PUB_HOSTED_URL ==>?https://pub.flutter-io.cn
-
