@@ -1,4 +1,4 @@
-1、github上flutter的官方项目，包含官方的插件
+﻿1、github上flutter的官方项目，包含官方的插件
 https://github.com/flutter
 
 2、flutter插件版本查询
@@ -6,3 +6,9 @@ https://pub.flutter-io.cn/packages/
 
 3、通过接口提供的json数据转换为model模型，json转model
 https://javiercbk.github.io/json_to_dart/
+
+4、Material Design风格icons
+http://materialdesignicons.com
+
+5、json格式化
+http://www.bejson.com/

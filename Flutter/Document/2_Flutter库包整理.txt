@@ -1,26 +1,25 @@
-Flutter社区和资源传送门
- 新： 慕课网《Flutter入门与案例实战》   |   中文网《Flutter实战》电子书
-https://www.imooc.com/learn/1090		https://book.flutterchina.club/
 
- 
+flutter_shop项目中用到的：
 
-字体图标生成 http://fluttericon.com/
-Flutter中文网  https://flutterchina.club 
-Flutter官网 https://flutter.io
-Flutter中文开发者论坛 http://flutter-dev.cn/
-Flutter|Dart语言中文社区 http://www.cndartlang.com/flutter
-Dart开源包 https://pub.dartlang.org/packages
-Dart SDK文档 https://api.dartlang.org/stable/1.24.3/index.html
-学习资料 https://marcinszalek.pl/
-Flutter布局控件 https://juejin.im/post/5bab35ff5188255c3272c228
-Flutter开发者 http://flutter.link/
-Flutter开源APP https://itsallwidgets.com/
-深入理解（Flutter Platform Channel ）https://www.jianshu.com/p/39575a90e820
-简书 - 闲鱼技术 https://www.jianshu.com/u/cf5c0e4b1111
-  
+轮播组件flutter_swiper
+https://github.com/best-flutter/flutter_swiper/blob/master/README-ZH.md
+
+flutter_screenutil
+https://m.qlchat.com/wechat/page/topic-simple-video?topicId=2000003742578086&byhand=1
+
+url组件urk_launcher
+https://github.com/flutter/plugins/tree/master/packages/url_launcher
+
 
 Awesome Flutter
 包含很多Flutter库、工具和教程
+https://github.com/Solido/awesome-flutter
+
+
+API
+http://wanandroid.com/blog/show/2
+https://github.com/jokermonn/-Api
+https://mp.weixin.qq.com/s/HCxJ8u-y5CVbQjXHDuj93g
 
 
 
@@ -670,6 +669,21 @@ flutter_qq  (QQ)
 https://pub.dartlang.org/packages/flutter_qq
 
 QQ登录、分享到QQ、分享到QQ空间。
+
+路由
+flutter_redux
+flutter_bloc
+https://javiercbk.github.io/json_to_dart/
+
+
+卡片表单
+https://github.com/codegrue/card_settings
+
+瀑布流
+https://github.com/letsar/flutter_staggered_grid_view
+
+
+
 
  
 
