@@ -186,7 +186,9 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('商品列表'),
+      child: Container(
+
+      ),
     );
   }
 
@@ -228,6 +230,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
 
   Widget _goodsPrice(int index){
     return Container(
+      margin: EdgeInsets.only(top: 20),
       child: Row(
         children: <Widget>[
           Text(
@@ -243,6 +246,14 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
       ),
     );
   }
+
+  Widget _ListWidget(int index){
+
+    
+
+  }
+
+  
 
 
 
