@@ -248,8 +248,26 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
   }
 
   Widget _ListWidget(int index){
-
-    
+    return InkWell(
+      onTap: (){},
+      child: Container(
+        padding: EdgeInsets.only(top: 5.0,bottom: 5.0),
+        decoration: BoxDecoration(
+          color: Colors.white
+        ),
+        child: Row(
+          children: <Widget>[
+            _goodsImage(index),
+            Column(
+              children: <Widget>[
+                _goodsName(index),
+                _goodsPrice(index),
+              ],
+            )
+          ],
+        ),
+      ),
+      );
 
   }
 
