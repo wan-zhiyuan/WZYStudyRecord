@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import '../model/category.dart';
 
-//分类页面_左侧大类_切换时的状态管理provide
+//变化的是右侧小类列表信息
 class ChildCategory with ChangeNotifier{
   List<BxMallSubDto> childCategoryList = [];
 
   //改变childCategoryList的方法
+  //点击大类时，更改商品小类列表
   getChildCategory(List<BxMallSubDto> list){
     //新建‘全部’子类对象，加入子类集合最前面
     BxMallSubDto all= BxMallSubDto();

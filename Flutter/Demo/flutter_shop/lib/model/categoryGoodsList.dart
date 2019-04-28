@@ -1,3 +1,4 @@
+//分类页面右侧的商品列表类
 class CategoryGoodsListModel {
   String code;
   String message;

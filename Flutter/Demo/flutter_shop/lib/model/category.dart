@@ -1,4 +1,4 @@
-//自动生成category模型
+//左侧大分类和大分类中的小分类信息
 class CategoryModel {
   String code;
   String message;
