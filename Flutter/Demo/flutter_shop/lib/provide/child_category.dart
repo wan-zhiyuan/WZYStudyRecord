@@ -18,4 +18,9 @@ class ChildCategory with ChangeNotifier{
     childCategoryList.addAll(list);
     notifyListeners();
   }
+
+//说明：
+//分类页面，我想要点击左侧大类列表，改变右侧小类导航
+//
+
 }
