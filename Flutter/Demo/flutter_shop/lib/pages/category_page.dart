@@ -8,6 +8,7 @@ import 'package:provide/provide.dart';
 import '../provide/child_category.dart';
 import '../provide/category_goods_list.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 
@@ -184,8 +185,6 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
 
     return InkWell(
       onTap: (){
-        print('index=${index}');
-        print('categorySubId=${item.mallSubId}');
         Provide.value<ChildCategory>(context).changeChildIndex(index,item.mallSubId);
         _getGoodsList(item.mallSubId);
       },
@@ -205,7 +204,7 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
     void _getGoodsList(String categorySubId) async{
       var data = {
         'categoryId':Provide.value<ChildCategory>(context).categoryId, //大类id (已通过状态管理在点击大类时，保存了categoryId)
-        'categorySubId':categorySubId,                                 //子类id
+        'categorySubId':categorySubId,                                 //子类id，如果想获得子类所有的数据，传''空就行
         'page':1,
       };
       await request('getMallGoods',formData: data).then((val){
@@ -292,23 +291,32 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
       
   }
   
-      void _getMoreList() async{
-        Provide.value<ChildCategory>(context).addPage();
-        var data = {
-          'categoryId':Provide.value<ChildCategory>(context).categoryId, //大类id (已通过状态管理在点击大类时，保存了categoryId)
-          'categorySubId':Provide.value<ChildCategory>(context).subId,                                 //子类id
-          'page':Provide.value<ChildCategory>(context).page,
-        };
-        await request('getMallGoods',formData: data).then((val){
-          var data = json.decode(val.toString());
-          CategoryGoodsListModel goodsList = CategoryGoodsListModel.fromJson(data); 
-          if(goodsList.data==null){
-            Provide.value<ChildCategory>(context).changeNoMore('没有更多了');
-          }else{
-            Provide.value<CategoryGoodsListProvide>(context).getMoreList(goodsList.data);
-          }
-        });
-    }
+  void _getMoreList() async{
+    Provide.value<ChildCategory>(context).addPage();
+    var data = {
+      'categoryId':Provide.value<ChildCategory>(context).categoryId, //大类id (已通过状态管理在点击大类时，保存了categoryId)
+      'categorySubId':Provide.value<ChildCategory>(context).subId,                                 //子类id
+      'page':Provide.value<ChildCategory>(context).page,
+    };
+    await request('getMallGoods',formData: data).then((val){
+      var data = json.decode(val.toString());
+      CategoryGoodsListModel goodsList = CategoryGoodsListModel.fromJson(data); 
+      if(goodsList.data==null){
+        //toast提示
+        Fluttertoast.showToast(
+          msg: "已经到底了",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,//提示的位置
+          backgroundColor: Colors.pink,//背景色
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+        Provide.value<ChildCategory>(context).changeNoMore('没有更多了');
+      }else{
+        Provide.value<CategoryGoodsListProvide>(context).getMoreList(goodsList.data);
+      }
+    });
+  }
 
 
   Widget _goodsImage(List newList,int index){

@@ -22,7 +22,7 @@ class ChildCategory with ChangeNotifier{
 
     //新建‘全部’子类对象，加入子类集合最前面
     BxMallSubDto all= BxMallSubDto();
-    all.mallSubId='00';
+    all.mallSubId='';//此处默认值设置为00，返回的data为null
     all.mallCategoryId='00';
     all.comments='null';
     all.mallSubName='全部';
