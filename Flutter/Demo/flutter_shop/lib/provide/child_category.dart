@@ -6,14 +6,20 @@ class ChildCategory with ChangeNotifier{
   List<BxMallSubDto> childCategoryList = [];
   int childIndex = 0;//子类高亮索引 =>每次点击大类 索引要清零
   String categoryId = '4';//大类Id
+  String subId = '';//小类
+  int page= 1; // 列表页数
+  String noMoreText = ''; // 商品列表上拉没有数据时显示的文字
 
 
   //点击大类切换逻辑
   getChildCategory(List<BxMallSubDto> list,String id){
 
+    //只要切换大类，商品列表就初始化为第一页，并且noMoreText设置为空
+    page=1;
+    noMoreText='';
     childIndex=0;
-
     categoryId=id;
+
     //新建‘全部’子类对象，加入子类集合最前面
     BxMallSubDto all= BxMallSubDto();
     all.mallSubId='00';
@@ -26,8 +32,24 @@ class ChildCategory with ChangeNotifier{
   }
 
   //改变子类索引
-  changeChildIndex(index){
+  changeChildIndex(index,String id){
+    //状态初始化
+    page=1;
+    noMoreText='';
+
     childIndex = index;
+    subId=id;
+    notifyListeners();
+  }
+
+  //增加Page的方法
+  addPage(){
+    page++;
+  }
+
+  //改变noMore的方法
+  changeNoMore(String text){
+    noMoreText = text;
     notifyListeners();
   }
 
