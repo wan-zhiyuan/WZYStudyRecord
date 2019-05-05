@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   void initState() { //页面加载时执行
     super.initState();
     // _getHotGoods();//获取火爆专区的商品//添加上拉加载后，此处获取数据获取注释
-    print('1111111');
   }
   
   String homePageContent = '正在获取数据';

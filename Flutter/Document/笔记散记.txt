@@ -1,1 +1,3 @@
-ListView使用时必须设置宽高，不然会报错。
+﻿ListView使用时必须设置宽高，不然会报错。
+
+FutureBuilder一般用于body外层，异步加载widget,可以判断有值和没有值时，页面内body显示的内容。

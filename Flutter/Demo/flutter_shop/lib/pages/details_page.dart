@@ -1,14 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:provide/provide.dart';
+import '../provide/details_info.dart';
 
 class DetailsPage extends StatelessWidget {
   final String goodsId;
   DetailsPage(this.goodsId);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('商品ID：${goodsId}'),
+    
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: (){
+            Navigator.pop(context);//关闭当前页面，返回上一页
+          },
+        ),
+        title: Text('商品详情页面'),
+      ),
+      body: FutureBuilder( //此widget可异步加载
+        future: _getBackInfo(context),
+        builder: (context,snapshot){
+          if(snapshot.hasData){
+            return Container(
+              child: Column(
+                children: <Widget>[
+                  Text('商品ID：${goodsId}')
+                ],
+              ),
+            );
+          }else{
+            return Text('加载中......');
+          }
+        },
       ),
     );
   }
+
+  Future _getBackInfo(BuildContext context) async{
+    await Provide.value<DetailsInfoProvide>(context).getGoodsInfo(goodsId);
+    return '完成加载';
+  }
+
+
 }
