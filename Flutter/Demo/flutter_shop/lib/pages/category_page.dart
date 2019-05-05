@@ -239,7 +239,7 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
 
   @override
   Widget build(BuildContext context) {
-    return Provide<CategoryGoodsListProvide>(
+    return Provide<CategoryGoodsListProvide>( //页面初始化时,此处一共会被build两次，一次是默认的，另外一次是执行了getGoodsList方法,刷新了页面
       builder: (context,child,data){
         try {
           if(Provide.value<ChildCategory>(context).page==1){
