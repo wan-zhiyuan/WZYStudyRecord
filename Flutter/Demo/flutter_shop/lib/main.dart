@@ -11,6 +11,9 @@ void main(){
   var childCategory = ChildCategory();
   var categoryGoodsListProvide = CategoryGoodsListProvide();
   var providers = Providers();
+  final router = Router();
+
+
   providers
   ..provide(Provider<Counter>.value(counter))
   ..provide(Provider<ChildCategory>.value(childCategory))
