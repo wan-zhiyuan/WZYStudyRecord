@@ -26,6 +26,7 @@ dependencies:
   flutter_easyrefresh: ^1.2.7 #上拉加载插件
   provide: ^1.0.2 #状态管理
   fluttertoast: ^3.0.4 #轻提示插件
+  fluro: ^1.4.0 #路由
 
 dev_dependencies:
   flutter_test:
