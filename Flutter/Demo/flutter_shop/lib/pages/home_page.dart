@@ -5,6 +5,7 @@ import 'dart:convert'; // 引入后可使用json，包含简单的json编码器�
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import '../routers/application.dart';
 
 // 根据请求的信息会改变页面显示的内容
 class HomePage extends StatefulWidget {
@@ -141,7 +142,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin{
       //将list包装成widget再放入list中
        List<Widget> listWidget = hotGoodsList.map((val){//map循环,val相当于每一项
           return InkWell(
-            onTap:(){print('点击了火爆商品');},
+            onTap:(){
+              Application.router.navigateTo(context, "/detail?id=${val['goodsId']}");
+            },
             child: 
             Container(
               width: ScreenUtil().setWidth(372),//设置每一项商品的宽度

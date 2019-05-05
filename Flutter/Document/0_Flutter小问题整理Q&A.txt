@@ -1,4 +1,4 @@
-1、如何隐藏状态栏？
+﻿1、如何隐藏状态栏？
 在需要隐藏的页面
 引入'package:flutter/services.dart',
 ??SystemChrome.setEnabledSystemUIOverlays([]); //隐藏
@@ -19,3 +19,9 @@ flutter_easyrefresh: ^1.2.7
 
 5、如何快速生成model模型？
 使用https://javiercbk.github.io/json_to_dart/
+
+6、状态管理provide怎么使用？
+
+
+7、路由fluro怎么使用？
+
