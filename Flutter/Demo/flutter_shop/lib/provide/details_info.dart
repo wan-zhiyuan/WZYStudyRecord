@@ -22,9 +22,9 @@ class DetailsInfoProvide with ChangeNotifier{
   }
 
   //从后台获取商品数据
-  getGoodsInfo(String id){
+  getGoodsInfo(String id) async{ //如果不使用async await异步操作，会出现数据还未获得，但是渲染页面出错的BUG
     var formData = {'goodId':id};
-    request('getGoodDetailById',formData:formData).then((val){
+    await request('getGoodDetailById',formData:formData).then((val){
       var responseData = json.decode(val.toString());
       print(responseData);
       goodsInfo = DetailsModle.fromJson(responseData);
