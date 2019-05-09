@@ -28,6 +28,7 @@ dependencies:
   fluttertoast: ^3.0.4 #轻提示插件
   fluro: ^1.4.0 #路由
   flutter_html: ^0.9.6
+  shared_preferences: ^0.5.2 #持久化插件
 
 dev_dependencies:
   flutter_test:
