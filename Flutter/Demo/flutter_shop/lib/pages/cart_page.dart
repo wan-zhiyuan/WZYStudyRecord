@@ -12,7 +12,7 @@ class _CartPageState extends State<CartPage> {
   
   @override
   Widget build(BuildContext context) {
-    _show();
+    _show();//每次进入前进行显示
     return Container(
       child: Column(
         children: <Widget>[

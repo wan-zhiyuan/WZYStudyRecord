@@ -21,6 +21,10 @@ flutter_easyrefresh: ^1.2.7
 使用https://javiercbk.github.io/json_to_dart/
 
 6、状态管理provide怎么使用？
+c、provide注册全局依赖
+
+
+
 
 
 7、路由fluro怎么使用？
