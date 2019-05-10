@@ -34,7 +34,7 @@ class CartProvide with ChangeNotifier{
     //如果没有此商品，添加此商品
     if (!isHave) {
       Map<String,dynamic> newGoods = {'goodsId':goodsId,
-        'goodsname':goodsName,
+        'goodsName':goodsName,
         'count':count,
         'price':price,
         'images':images,
@@ -71,10 +71,10 @@ class CartProvide with ChangeNotifier{
       cartList=[];
     } else {
       //将从sp中取出的数据转为List
-      List<Map> tempList = (json.decode(cartString.toString()) as List) . cast();
+      List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
       tempList.forEach((item){
         //将List中的每一项item都转变为CartInfoModel对象存入集合
-        cartList.add(CartInfoModel.fromJson(item));
+        cartList.add(new CartInfoModel.fromJson(item));
       });
     }
     notifyListeners();

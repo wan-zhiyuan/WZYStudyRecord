@@ -24,9 +24,20 @@ flutter_easyrefresh: ^1.2.7
 c、provide注册全局依赖
 
 
-
-
-
 7、路由fluro怎么使用？
 
 8、RaisedButton的应用场景，以及什么时候用InkWell小部件？
+
+9、什么时候使用Scaffold脚手架小部件？
+当我们页面需要顶部有AppBar的时候，目前只列出一条
+
+10、FutureBuilder小部件如何使用及使用场景？
+见53课
+需要有一段时间去获取数据再渲染页面的地方
+future:获取数据；
+builder:获取数据后渲染页面；通过snapshot判断数据是否获得，显示不同内容
+
+
+
+
+
