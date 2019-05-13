@@ -26,6 +26,8 @@ c、provide注册全局依赖
 
 7、路由fluro怎么使用？
 
+
+
 8、RaisedButton的应用场景，以及什么时候用InkWell小部件？
 
 9、什么时候使用Scaffold脚手架小部件？
@@ -37,6 +39,9 @@ c、provide注册全局依赖
 future:获取数据；
 builder:获取数据后渲染页面；通过snapshot判断数据是否获得，显示不同内容
 
+
+11、package:flutter/src/widgets/text.dart': Failed assertion: line 237 pos 15: 'data != null': is not是什么异常？
+说明有对象的值为null，并且你使用了它。
 
 
 

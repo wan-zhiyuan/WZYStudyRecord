@@ -1,10 +1,10 @@
 //购物车信息类
 class CartInfoModel {
-  String goodsId;
-  String goodsName;
-  int count;
-  double price;
-  String images;
+  String goodsId;   //商品Id
+  String goodsName; //商品名称
+  int count;        //数量
+  double price;     //商品价格
+  String images;    //商品图片
 
   CartInfoModel(
       {this.goodsId, this.goodsName, this.count, this.price, this.images});
