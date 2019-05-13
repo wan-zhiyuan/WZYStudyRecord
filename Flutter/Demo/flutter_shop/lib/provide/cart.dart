@@ -38,6 +38,7 @@ class CartProvide with ChangeNotifier{
         'count':count,
         'price':price,
         'images':images,
+        'isCheck':true,
         };
       tempList.add(newGoods);
       cartList.add(CartInfoModel.fromJson(newGoods));//将Map转为对象，存入对象集合
