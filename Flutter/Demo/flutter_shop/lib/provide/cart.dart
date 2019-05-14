@@ -81,5 +81,27 @@ class CartProvide with ChangeNotifier{
     notifyListeners();
   }
 
+  //删除单个购物车商品
+  deleteOneGoods(String goodsId) async{
+    SharedPreferences prefs =  await SharedPreferences.getInstance();
+    cartString = prefs.getString('cartInfo');
+    List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+    int tempIndex=0;//循环时所用的索引
+    int delIndex=0;//需要删除的商品所在位置索引
+    tempList.forEach((item){
+      if (item['goodsId']==goodsId) {
+        delIndex = tempIndex;
+      }
+      tempIndex++;
+    });
+
+    tempList.removeAt(delIndex);
+    cartString = json.encode(tempList).toString();
+    prefs.setString('cartInfo', cartString);
+    await getCartInfo();//刷新列表信息，更新cartList ，并且刷新使用此指的Widget，即购物车列表
+  }
+
+  
+
 }
 
