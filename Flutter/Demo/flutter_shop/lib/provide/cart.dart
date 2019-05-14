@@ -6,6 +6,9 @@ import '../model/cartInfo.dart';
 class CartProvide with ChangeNotifier{
   String cartString = "[]";
   List<CartInfoModel> cartList=[];
+  double allPrice = 0; // 总价格
+  int allGoodsCount = 0; // 商品总数量
+
 
   save(goodsId,goodsName,count,price,images) async {
     //初始化SharedPreferences
@@ -73,7 +76,14 @@ class CartProvide with ChangeNotifier{
     } else {
       //将从sp中取出的数据转为List
       List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+      //每次计算前，将统计的合计价格、合计数量置为0
+      allPrice = 0;
+      allGoodsCount = 0;
       tempList.forEach((item){
+        if (item['isCheck']) {
+            allPrice+=(item['count']*item['price']);
+            allGoodsCount+=item['count'];
+        }
         //将List中的每一项item都转变为CartInfoModel对象存入集合
         cartList.add(new CartInfoModel.fromJson(item));
       });
@@ -101,7 +111,7 @@ class CartProvide with ChangeNotifier{
     await getCartInfo();//刷新列表信息，更新cartList ，并且刷新使用此指的Widget，即购物车列表
   }
 
-  
+
 
 }
 
