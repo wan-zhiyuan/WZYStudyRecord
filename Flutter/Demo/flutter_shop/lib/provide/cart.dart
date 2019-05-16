@@ -117,7 +117,7 @@ class CartProvide with ChangeNotifier{
     await getCartInfo();//刷新列表信息，更新cartList ，并且刷新使用此指的Widget，即购物车列表
   }
 
-
+  //点击单选按钮操作
   changeCheckState(CartInfoModel cartItem) async{
     SharedPreferences prefs =  await SharedPreferences.getInstance();
     cartString = prefs.getString('cartInfo');
@@ -153,6 +153,34 @@ class CartProvide with ChangeNotifier{
     await getCartInfo();
   }
 
+  //商品数量加减
+  addOrReduceAction(CartInfoModel cartItem,String todo) async{
+    SharedPreferences prefs =  await SharedPreferences.getInstance();
+    cartString = prefs.getString('cartInfo');
+    List<Map> tempList = (json.decode(cartString.toString()) as List).cast();
+    //1、找索引值
+    int tempIndex = 0;
+    int changeIndex = 0;
+    tempList.forEach((item){
+      if (item['goodsId']==cartItem.goodsId) {
+        changeIndex=tempIndex;
+      }
+      tempIndex++;
+    });
+    //2、修改需要改变的内容
+    if (todo=='add') {
+      cartItem.count++;
+    } else if(cartItem.count>1){
+      cartItem.count--;
+    }
+    //3、重新放入list，并且更新持久化内容
+    tempList[changeIndex]=cartItem.toJson();//list中是Map对象
+    cartString = json.encode(tempList);//重新转为json字符串
+    prefs.setString('cartInfo', cartString);
+    
+    //4、重新获取购物车信息，更新页面
+    await getCartInfo();
+  }
 
 
 }
