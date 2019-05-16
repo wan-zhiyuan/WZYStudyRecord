@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
 import '../../provide/cart.dart';
 import '../../provide/details_info.dart';
+import '../../provide/currentIndex.dart';
 
 class DetailsBottom extends StatelessWidget {
   @override
@@ -23,7 +24,10 @@ class DetailsBottom extends StatelessWidget {
       child: Row(
         children: <Widget>[
           InkWell(
-            onTap: (){},
+            onTap: (){
+              Provide.value<CurrentIndexProvide>(context).changeIndex(2); // 2为购物车，跳转购物车
+              Navigator.pop(context);//退出detailsPage详情页
+            },
             child: Container(
               width: ScreenUtil().setWidth(110),
               alignment: Alignment.center,

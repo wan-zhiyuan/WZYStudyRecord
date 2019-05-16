@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'dart:convert'; //json转换
 import '../model/cartInfo.dart';
 
 class CartProvide with ChangeNotifier{

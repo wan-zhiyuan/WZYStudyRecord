@@ -6,6 +6,7 @@ import './provide/child_category.dart';
 import './provide/category_goods_list.dart';
 import './provide/details_info.dart';
 import './provide/cart.dart';
+import './provide/currentIndex.dart';
 //路由引入
 import 'package:fluro/fluro.dart';
 import './routers/routes.dart';
@@ -17,6 +18,7 @@ void main(){
   var categoryGoodsListProvide = CategoryGoodsListProvide();
   var detailsInfoProvide = DetailsInfoProvide();
   var cartProvide = CartProvide();
+  var currentIndexProvide = CurrentIndexProvide();
   var providers = Providers();
 
   providers
@@ -24,7 +26,8 @@ void main(){
   ..provide(Provider<ChildCategory>.value(childCategory))
   ..provide(Provider<CategoryGoodsListProvide>.value(categoryGoodsListProvide))
   ..provide(Provider<DetailsInfoProvide>.value(detailsInfoProvide))
-  ..provide(Provider<CartProvide>.value(cartProvide));
+  ..provide(Provider<CartProvide>.value(cartProvide))
+  ..provide(Provider<CurrentIndexProvide>.value(currentIndexProvide));
   runApp(ProviderNode(child:MyApp(),providers: providers,));
   }
 
