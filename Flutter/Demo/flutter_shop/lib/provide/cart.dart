@@ -23,6 +23,8 @@ class CartProvide with ChangeNotifier{
     //声明变量，用于判断购物车中是否已经存在此商品ID
     bool isHave = false;//默认为false，没有
     int ival=0;//用于循环的索引，每次都是从第一项开始
+    allPrice=0;
+    allGoodsCount=0;
     //进行循环，找出是否已经存在该商品
     tempList.forEach((item){ //item指的是tempList的具体的项
       //判断list中是否有此商品
@@ -32,6 +34,10 @@ class CartProvide with ChangeNotifier{
         tempList[ival]['count']=item['count']+1;
         cartList[ival].count++;
         isHave = true;
+      }
+      if(item['isCheck']){
+        allPrice+= (cartList[ival].price*cartList[ival].count);
+        allGoodsCount+= cartList[ival].count;
       }
       ival++;
     });
@@ -46,6 +52,10 @@ class CartProvide with ChangeNotifier{
         };
       tempList.add(newGoods);
       cartList.add(CartInfoModel.fromJson(newGoods));//将Map转为对象，存入对象集合
+
+      allPrice+= (count*price);
+      allGoodsCount+= count;
+      
     }
 
     //list转json，json再字符串化

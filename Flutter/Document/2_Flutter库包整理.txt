@@ -682,7 +682,10 @@ https://github.com/codegrue/card_settings
 瀑布流
 https://github.com/letsar/flutter_staggered_grid_view
 
-
+flutter图标库：font_awesome_flutter
+https://fontawesome.com/
+教学：
+https://blog.csdn.net/qq_35905501/article/details/90270010
 
 
  

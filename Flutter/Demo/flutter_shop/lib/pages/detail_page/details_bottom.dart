@@ -23,21 +23,47 @@ class DetailsBottom extends StatelessWidget {
       height: ScreenUtil().setHeight(80),
       child: Row(
         children: <Widget>[
-          InkWell(
-            onTap: (){
-              Provide.value<CurrentIndexProvide>(context).changeIndex(2); // 2为购物车，跳转购物车
-              Navigator.pop(context);//退出detailsPage详情页
-            },
-            child: Container(
-              width: ScreenUtil().setWidth(110),
-              alignment: Alignment.center,
-              child: Icon(
-                Icons.shopping_cart,
-                size:28,
-                color: Colors.red,
+          Stack(
+            children: <Widget>[
+              InkWell(
+                onTap: (){
+                  Provide.value<CurrentIndexProvide>(context).changeIndex(2); // 2为购物车，跳转购物车
+                  Navigator.pop(context);//退出detailsPage详情页
+                },
+                child: Container(
+                  width: ScreenUtil().setWidth(110),
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.shopping_cart,
+                    size:28,
+                    color: Colors.red,
+                  ),
+                ),
               ),
-            ),
+              Provide<CartProvide>(
+                builder: (context,child,val){
+                  int goodsCount = Provide.value<CartProvide>(context).allGoodsCount;
+                  return Positioned(
+                    top: 0,
+                    right: 10,
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(6, 3, 6, 3), //中间数字，外圈是圆
+                      decoration: BoxDecoration(
+                        color: Colors.pink,
+                        border: Border.all(width: 2,color: Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        '${goodsCount}',
+                        style:TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(22)),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
+          
           InkWell(
             onTap: () async{
               await Provide.value<CartProvide>(context).save(goodsId, goodsName, count, price, images);
