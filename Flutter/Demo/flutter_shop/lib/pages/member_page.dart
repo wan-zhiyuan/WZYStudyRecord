@@ -13,13 +13,15 @@ class MemberPage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           _topHeader(),
+          _orderTitle(),
+          _orderType(),
         ],
       ),
     );
   }
 
+  //头部
   Widget _topHeader(){
-
     return Container(
       width: ScreenUtil().setWidth(750),
       padding: EdgeInsets.all(20),
@@ -43,4 +45,90 @@ class MemberPage extends StatelessWidget {
       ),
     );
   }
+
+  //我的订单标题
+  Widget _orderTitle(){
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(width: 1,color: Colors.black12),
+        )
+      ),
+      child: ListTile(
+        leading: Icon(Icons.list),
+        title: Text('我的订单'),
+        trailing: Icon(Icons.chevron_right),
+      ),
+    );
+  }
+
+  Widget _orderType(){
+    return Container(
+      margin: EdgeInsets.only(top: 5),
+      width: ScreenUtil().setWidth(750),
+      height: ScreenUtil().setHeight(150),
+      padding: EdgeInsets.only(top: 20),
+      color: Colors.white,
+      child: Row(
+        children: <Widget>[
+          Container(
+            width: ScreenUtil().setWidth(187),
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.party_mode,
+                  size: 30,
+                ),
+                Text('待付款'),
+              ],
+            ),
+          ),
+          //----------------------------
+          Container(
+            width: ScreenUtil().setWidth(187),
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.query_builder,
+                  size: 30,
+                ),
+                Text('待发货'),
+              ],
+            ),
+          ),
+          //----------------------------
+          Container(
+            width: ScreenUtil().setWidth(187),
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.directions_car,
+                  size: 30,
+                ),
+                Text('待收货'),
+              ],
+            ),
+          ),
+          //----------------------------
+          Container(
+            width: ScreenUtil().setWidth(187),
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.content_paste,
+                  size: 30,
+                ),
+                Text('待评价'),
+              ],
+            ),
+          ),
+          //----------------------------
+        ],
+      ),
+    );
+  }
+
+
 }
