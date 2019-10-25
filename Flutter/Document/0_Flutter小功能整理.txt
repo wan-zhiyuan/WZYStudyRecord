@@ -1,0 +1,21 @@
+1、如何隐藏状态栏？
+在需要隐藏的页面
+引入'package:flutter/services.dart',
+??SystemChrome.setEnabledSystemUIOverlays([]); //隐藏
+SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);//恢复
+
+2、package get慢（撞墙）
+新增环境变量?
+FLUTTER_STORAGE_BASE_URL? ==>?https://storage.flutter-io.cn
+PUB_HOSTED_URL ==>?https://pub.flutter-io.cn
+
+3、禁止widget滑动
+在需要禁止的widget中加入此参数（如果此widget有这个属性的话）
+physics: NeverScrollableScrollPhysics(),
+
+4、上拉下拉加载如何制作
+使用以下插件
+flutter_easyrefresh: ^1.2.7
+
+5、如何快速生成model模型？
+使用https://javiercbk.github.io/json_to_dart/

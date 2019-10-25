@@ -22,3 +22,7 @@ Flutter开源APP https://itsallwidgets.com/
 
 Flutter掘金
 https://juejin.im/tag/Flutter?utm_source=flutterchina&utm_medium=word&utm_content=btn&utm_campaign=q3_website
+
+掘金博客 恋猫de小郭 Flutter完全手册
+https://github.com/CarGuo/GSYFlutterBook
+https://guoshuyu.cn/home/wx/Flutter-1.html
