@@ -6,7 +6,9 @@ function Index(){
         return ()=>{
             console.log('老弟，你走了！Index')
         }
-    },[]) // useEffect第二个参数为空数组时，当页面销毁时，才执行上面的return后的函数进行解绑
+    },[]) 
+    // useEffect第二个参数为空数组时，当页面销毁时，才执行上面的return后的函数进行解绑
+    // 相当于componentWillUnmount
     return <h2>ibarrel</h2>
 }
 
@@ -24,7 +26,7 @@ function Example() {
         return ()=>{
             console.log('===============')
         }
-    },[count])// useEffect第二个参数为值时，当count发生变化时，才执行上面的return后的函数
+    },[count])// useEffect第二个参数为状态值时，当状态值发生变化时，才执行上面的return后的函数
     return (
         <div>
             <p>You clicked {count} times</p>
