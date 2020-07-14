@@ -1,5 +1,4 @@
 import React, { useState, createContext, useContext } from 'react'; // react 16.8.0以上才能使用react-hooks
-import Example5 from './example5'
 
 export const CountContext = createContext(); // 创建父组件的上下文
 
@@ -16,7 +15,7 @@ function Example4() {
             <button onClick={() => { setCount(count + 1) }}>Click me</button>
             {/* 将需要接收参数的子组件放入Context.Provider */}
             <CountContext.Provider value={count}>
-                <Example5 />
+                <Counter />
             </CountContext.Provider>
         </div>
     )
