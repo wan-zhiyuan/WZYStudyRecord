@@ -18,7 +18,9 @@ function ChildComponent({name,children}){
         console.log('他来了，他来了。小红向我们走来了')
         return name+',小红向我们走来了'
     }
-    // 第二个参数（数组），只有当name这个参数发升变化时，才执行第一个参数的函数
+    // 参数一：一个函数用于处理逻辑
+    // 参数二：控制useMemo重新执⾏行的数组，array改变时才会 重新执行useMemo
+    // 相当于使用useMemo缓存了变量name,当name值没有变化时，直接使用缓存中的值，不执行参数一的函数
     const actionXiaohong =  useMemo(()=>changeXiaohong(name),[name]) 
 
     return (
