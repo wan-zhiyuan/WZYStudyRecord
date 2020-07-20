@@ -3,6 +3,7 @@ import { View, Text } from '@tarojs/components'
 import { PostCard, PostForm } from '../../components'
 import './index.scss'
 
+
 // Hooks方式写法
 export default function Index() {
   const [posts, setPosts] = useState([

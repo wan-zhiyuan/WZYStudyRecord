@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Image } from '@tarojs/components'
 import { xiedajiao, liuying } from '../../tools'
 import test001 from './../../static/test001.png'
+
 function Blog() {
 
     const girls = [

@@ -14,7 +14,7 @@ export default function PostForm(props) {
     // 5、handleContentInput    处理内容接收到用户输入时的回调函数
     return (
         <View className='post-form'>
-            <View>添加新的帖子</View>
+            {/* <View>添加新的帖子</View> */}
             <Form onSubmit={props.handleSubmit}>
                 <View>
                     <View className='form-hint'>标题</View>
@@ -33,9 +33,12 @@ export default function PostForm(props) {
                         onInput={props.handleContentInput}
                     />
                     {/* formType会触发Form的onSubmit事件 */}
-                    <Button className='form-button' formType='submit' type='primary'> 
+                    {/* <Button className='form-button' formType='submit' type='primary'> 
                         提交
-                    </Button>
+                    </Button> */}
+                    {/* <AtButton formType="submit" type="primary">
+                        提交
+                    </AtButton> */}
                 </View>
 
             </Form>
