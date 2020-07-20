@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 import React from 'react';
 import { View, Form, Input, Textarea, Button } from '@tarojs/components'
+import { AtButton } from 'taro-ui'
 
 import './index.scss'
 // 无状态组件：只处理父组件传值过来的props
@@ -18,7 +19,7 @@ export default function PostForm(props) {
             <Form onSubmit={props.handleSubmit}>
                 <View>
                     <View className='form-hint'>标题</View>
-                    <Input 
+                    <Input
                         className='input-title'
                         type='text'
                         placeholder='点击输入标题'
@@ -26,19 +27,20 @@ export default function PostForm(props) {
                         onInput={props.handleTitleInput} // 键盘输入是触发onInput事件
                     />
                     <View className='form-hint'>正文</View>
-                    <Textarea 
+                    <Textarea
                         className='input-content'
                         placeholder='点击输入正文'
                         value={props.formContent}
                         onInput={props.handleContentInput}
                     />
                     {/* formType会触发Form的onSubmit事件 */}
-                    {/* <Button className='form-button' formType='submit' type='primary'> 
+                    <Button className='form-button' formType='submit' type='primary'> 
                         提交
-                    </Button> */}
-                    {/* <AtButton formType="submit" type="primary">
+                    </Button>
+                    {/* <AtButton formType='submit' type='primary'>
                         提交
                     </AtButton> */}
+                    
                 </View>
 
             </Form>
