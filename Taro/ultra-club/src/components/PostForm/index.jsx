@@ -35,13 +35,9 @@ export default function PostForm(props) {
                     {/* <Button className='form-button' formType='submit' type='primary'> 
                         提交
                     </Button> */}
-                    <View className='form-button'>
-                        <AtButton type='primary' formType='submit' >提交</AtButton>
-                    </View>
-
+                    <AtButton type='primary' formType='submit' >提交</AtButton>
 
                 </View>
-
             </Form>
         </View>
     )
