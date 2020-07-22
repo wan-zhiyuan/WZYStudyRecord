@@ -28,3 +28,9 @@ export default function LoggedMine(props) {
         </View>
     )
 }
+
+LoggedMine.propTypes = {
+    avatar: PropTypes.string,
+    nickName: PropTypes.string,
+    username: PropTypes.string,
+}
