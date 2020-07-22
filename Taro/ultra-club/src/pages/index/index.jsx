@@ -4,7 +4,6 @@ import { AtFab, AtFloatLayout, AtMessage } from 'taro-ui'
 
 import { PostCard, PostForm } from '../../components'
 import './index.scss'
-import { isTaro } from 'nerv-utils'
 
 
 // Hooks方式写法
