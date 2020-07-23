@@ -1,35 +1,25 @@
 import Taro, { useState, useEffect } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
+import { useDispatch } from '@tarojs/redux'
 
 import { Header, Footer } from '../../components'
 import './mine.scss'
+import { SET_LOGIN_INFO } from '../../constants'
 
 export default function Mine() {
-    const [nickName, setNickName] = useState('')
-    const [avatar, setAvatar] = useState('')
-    const [isOpened, setIsOpened] = useState(false) // 控制表单的显示与隐藏
-    const [isLogout, setIsLogout] = useState(false) // 是否正在登出，控制‘退出登录’按钮是否显示loading
-
-    // 双取反来构造字符串对应的布尔值，用于标志此时是否用户已经登录
-    // 如果nickName有值，第一次取反获得false，第二次true，表明用户已登录 隐藏登录按钮
-    // 如果nickName无值，第一次取反获得true，第二次false，表明用户未登录 显示登录按钮
-    // isLogged用于控制登录按钮的显示
-    const isLogged = !!nickName
-
+    const dispatch = useDispatch()
 
     useEffect(()=>{
         // 目前 每次useState数据有变化的时候触发useEffect()，具体再学习Hooks的使用
         console.log('useEffect()')
-        // console.log(nickName)
-        // console.log(avatar)
-        // console.log(isOpened)
-        // console.log(isLogout)
+        // 第一次启动从storage中的数据判断是否登录
         async function getStorage() {
             try {
                 const { data } = await Taro.getStorage({key: 'userInfo'})
                 const { nickName, avatar } = data
-                setAvatar(avatar)
-                setNickName(nickName)
+                // setAvatar(avatar)
+                // setNickName(nickName)
+                dispatch({ type: SET_LOGIN_INFO, payload:{nickName, avatar}})
             } catch (err) {
                 console.log('getStorage ERR: ', err)
             }
@@ -94,25 +84,19 @@ export default function Mine() {
 
     return (
         <View className='mine'>
-            {/* <View>
-                <Image src={avatar} className='mine-avatar' />
-                <View className='mine-nickName'>图雀酱</View>
-                <View className='mine-username'>tutre</View>
-            </View>
-            <View className='mine-footer'>From 图雀社区 with Love</View> */}
             <Header 
-                isLogged={isLogged}
-                userInfo={{ avatar, nickName }}
-                handleClick={handleClick}
-                setLoginInfo={setLoginInfo}
+                // isLogged={isLogged}
+                // userInfo={{ avatar, nickName }}
+                // handleClick={handleClick}
+                // setLoginInfo={setLoginInfo}
             />
             <Footer 
-                isLogged={isLogged}
-                isOpened={isOpened}
-                isLogout={isLogout}
-                handleLogout={handleLogout} // 退出登录的点击事件
-                handleSetIsOpened={handleSetIsOpened}
-                handleSubmit={handleSubmit}
+                // isLogged={isLogged}
+                // isOpened={isOpened}
+                // isLogout={isLogout}
+                // handleLogout={handleLogout} // 退出登录的点击事件
+                // handleSetIsOpened={handleSetIsOpened}
+                // handleSubmit={handleSubmit}
             />
         </View>
     )

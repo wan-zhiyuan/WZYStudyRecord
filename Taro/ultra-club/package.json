@@ -33,6 +33,8 @@
   "dependencies": {
     "@tarojs/components": "2.2.11",
     "@tarojs/components-qa": "2.2.11",
+    "@tarojs/redux": "^2.2.10",
+    "@tarojs/redux-h5": "^2.2.10",
     "@tarojs/router": "2.2.11",
     "@tarojs/taro": "2.2.11",
     "@tarojs/taro-alipay": "2.2.11",
@@ -47,6 +49,8 @@
     "classnames": "^2.2.6",
     "nerv-devtools": "^1.5.5",
     "nervjs": "^1.5.5",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
     "regenerator-runtime": "0.11.1",
     "taro-ui": "^2.3.4"
   },
