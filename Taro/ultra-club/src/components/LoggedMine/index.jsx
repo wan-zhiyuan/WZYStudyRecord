@@ -26,10 +26,7 @@ export default function LoggedMine(props) {
             ) : (
                     <AtAvatar size='large' circle text='志' />
                 )}
-            <View className='mine-nickName'>
-                {userInfo.nickName ? userInfo.nickName : '未登录'}
-            </View>
-            <View className='mine-username'>{nickName}</View>
+            <View className='mine-nickName'>{nickName}</View>
         </View>
     )
 }

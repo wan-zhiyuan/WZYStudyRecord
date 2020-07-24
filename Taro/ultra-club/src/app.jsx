@@ -24,9 +24,8 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/mine/mine',
       'pages/index/index',
-
+      'pages/mine/mine',
       'pages/post/post',
     ],
     window: {
