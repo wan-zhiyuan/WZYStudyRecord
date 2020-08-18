@@ -1,7 +1,7 @@
 import Taro, { useEffect } from '@tarojs/taro' // useState目前不能从@tarojs/taro中获取
 import { View, Text } from '@tarojs/components'
 import { AtFab, AtFloatLayout, AtMessage } from 'taro-ui'
-import { useSelector, useDispatch } from  '@tarojs/redux'
+import { useSelector, useDispatch } from '@tarojs/redux'
 
 import { PostCard, PostForm } from '../../components'
 import './index.scss'
@@ -24,6 +24,9 @@ export default function Index() {
         const { data } = await Taro.getStorage({ key: 'userInfo' })
 
         const { nickName, avatar } = data
+        console.log(data)
+        console.log('nickName:' + nickName)
+        console.log('avatar:' + avatar)
 
         // 更新 Redux Store 数据
         dispatch({ type: SET_LOGIN_INFO, payload: { nickName, avatar } })
@@ -85,7 +88,7 @@ export default function Index() {
         return (
           // 暂时使用
           // <PostCard key={'_id' + index}  title={item.title} content={item.content} isList/>
-          <PostCard key={'_id' + index} postId={index} post={post} isList/>
+          <PostCard key={'_id' + index} postId={index} post={post} isList />
         )
       })}
       <AtFloatLayout
@@ -94,11 +97,11 @@ export default function Index() {
         onClose={() => setIsOpened(false)}
       >
         <PostForm
-          // formTitle={formTitle}
-          // formContent={formContent}
-          // handleSubmit={e => handleSubmit(e)}
-          // handleTitleInput={e => setFormTitle(e.target.value)}
-          // handleContentInput={e => setFormContent(e.target.value)}
+        // formTitle={formTitle}
+        // formContent={formContent}
+        // handleSubmit={e => handleSubmit(e)}
+        // handleTitleInput={e => setFormTitle(e.target.value)}
+        // handleContentInput={e => setFormContent(e.target.value)}
         />
       </AtFloatLayout>
       <View className="post-button">
