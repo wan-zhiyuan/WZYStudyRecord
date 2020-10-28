@@ -1,5 +1,5 @@
 // type annotation 类型注解
-// tyoe inference 类型推断
+// type inference 类型推断
 
 let count3 : number;
 count3 = 123;
