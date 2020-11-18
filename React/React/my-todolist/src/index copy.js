@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 
 const todoList = ["图雀", "图雀写作工具", "图雀社区", "图雀文档"]
 
+// React核心特点之一：组件化
+// 写法：1）函数式组件 2）类组件
+
+// <类组件>
 class Todo extends React.Component {
 
     render() {
@@ -23,14 +27,17 @@ class Todo extends React.Component {
     }
 }
 
+// <函数组件> 默认接收一个props参数，他是一个对象，用于保存父组件传递下来的内容
+function Tudo2(props) {
+    return <li>Hello, {props.content}</li>
+}
 
 class App extends React.Component {
 
     constructor(props) {
         super(props) // 每个继承自React.Component的组件在定义constructor方法时，需要在首行加入super(props)
         this.state = {
-            todoList: [],
-            nowTodo: '',
+            todoList: []
         }
     }
 
@@ -40,7 +47,7 @@ class App extends React.Component {
             this.setState({
                 todoList: todoList
             })
-        }, 2000)
+        }, 3000)
     }
 
     componentWillUnmount() {
@@ -48,25 +55,15 @@ class App extends React.Component {
         clearInterval(this.timer)
     }
 
-    handleChange(e) {
-        this.setState({
-            nowTodo: e.target.value
-        })
+    handleUpdate() {
+        console.log('更新')
+        this.setState({ todoList: ["图雀", "图雀写作工具", "图雀社区", "图雀文档"] })
     }
-
-    handleSubmit(e) {
-        e.preventDefault(e)
-        const newTodoList = this.state.todoList.concat(this.state.nowTodo)
-
-        this.setState({
-            todoList: newTodoList,
-            nowTodo: '',
-        })
-    }
-
 
     render() {
-        const { todoList, nowTodo } = this.state
+        const { todoList } = this.state
+
+        // const todoList = ["图雀", "图雀写作工具", "图雀社区", "图雀文档"];
 
         const renderTodoList = todoList.map((item, idx) => {
             return (
@@ -76,22 +73,52 @@ class App extends React.Component {
 
         return (
             <div>
-                <form onSubmit={e => this.handleSubmit(e)}>
-                    <input type='text' value={nowTodo} onChange={e => this.handleChange(e)}></input>
-                    <button type="submit">提交</button>
-                </form>
+                <div className='app'>Hello, World</div>
+                <button onClick={() => { this.handleUpdate() }}>更新</button>
                 <ul>
+                    {/* <Todo content={todoList[0]} from='图雀社区' />
+                    <Todo content={todoList[1]} />
+                    <Tudo2 content={todoList[2]} />
+                    <Tudo2 content={todoList[3]} /> */}
                     {renderTodoList}
                 </ul>
+                <Button />
+                <Link />
             </div>
 
         );
     }
+    // JSX代码最终会被Babel转义为React.createElement代码，创建出React Element的对象
 }
 
 ReactDOM.render(<App />, document.getElementById('root'))
 // 使用ReactDOM的render方法渲染定义的APP组件
 // 参数1：React根级组件
 // 参数2：一个DOM节点
+
+// 事件处理
+function Button() {
+    
+    function handleClick() {
+        console.log('按钮被点击了')
+    }
+
+    return (
+        <button onClick={handleClick}>点我</button>
+    )
+}
+
+// 默认行禁用
+function Link() {
+
+    function handleClick(event) {
+        event.preventDefault()
+        console.log('链接被点击了，但是它不会跳转页面，因为默认行被禁用了')
+    }
+
+    return (
+        <a onClick={handleClick} href="https://www.baidu.com">点我</a>
+    )
+}
 
 

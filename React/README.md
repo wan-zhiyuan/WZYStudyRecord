@@ -1,16 +1,10 @@
-# React学习
+<!-- 一级标题 -->
+# React学习 
+<!-- *表示列表 -->
 * 官网 https://https://www.reactjscn.com/
 
+<!-- 二级标题 -->
 ## React基础
-`import React from "react";
-import ReactDOM from "react-dom";
 
-class App extends React.Component {
-  render() {
-    return <div>Hello, World</div>;
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById("root"));`
-
+> 这是一段引用代码
 
