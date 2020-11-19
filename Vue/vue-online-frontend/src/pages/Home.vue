@@ -9,6 +9,7 @@
 <script>
 export default {
     name: 'home',
+    // 组件初始化数据
     data(){
         return {
             msg: 'Welcome to Your Vue.js App'

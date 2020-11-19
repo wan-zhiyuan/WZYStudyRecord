@@ -23,6 +23,7 @@ export default new Router({
       path: '/admin',
       name: 'Admin',
       component: Index,
+      // 嵌套路由
       children: [
         {
           path: 'new',

@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <!-- logo -->
+    <!-- <img src="./assets/logo.png"> -->
     <nav>
       <div class="container">
         <ul class="nav__left">
           <li>
+            <!-- router-link 导航链接 -->
             <router-link to="/">Home</router-link>
           </li>
           <li>
@@ -16,6 +18,7 @@
         </ul>
       </div>
     </nav>
+    <!-- 路由组件 -->
     <router-view/>
   </div>
 </template>
