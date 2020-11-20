@@ -1,1 +1,7 @@
-export default ()=><div>nextBlog page</div>
+function NextBlog() {
+    return (
+        <div>nextBlog page</div>
+    )
+}
+
+export default NextBlog

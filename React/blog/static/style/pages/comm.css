@@ -1,0 +1,44 @@
+body {
+    background-color: #f6f6f6;
+}
+
+.comm_main {
+    margin-top: .5rem;
+}
+
+.comm_left {
+    background-color: greenyellow;
+    padding: .3rem;
+    border-radius: .3rem;
+    border-bottom: 1px solid #eee;
+}
+
+/* 右边的组件都是用以下样式就行 */
+.comm_box {
+    background-color: hotpink;
+    margin-left: .5rem;
+    padding: .3rem;
+    border-radius: .3rem;
+    border-bottom: 1px solid #eee;
+}
+
+.list_title {
+    font-size: 1.3rem;
+    color: #1e90ff;
+    padding: 0 0.5rem;
+}
+
+.list_context {
+    color: #777;
+    padding: .5rem;
+}
+
+.list_icon {
+    padding: .5rem 0;
+    color: #aaa;
+}
+
+.list_icon span {
+    display: inline-block;
+    padding: 0 10px;
+}

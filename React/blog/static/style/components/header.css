@@ -1,0 +1,29 @@
+.header {
+    background-color: #fff;
+    padding: .4rem;
+    height: 3.2rem;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+}
+
+.header-logo {
+    font-size: 1.4rem;
+    color: #1e90ff;
+    text-align: left;
+}
+.header-txt {
+    font-size: 0.6rem;
+    color: #999;
+    padding-left: 0.3rem;
+    display: inline-block;
+}
+
+/* 对antd 的menu组件设置样式 */
+.ant-meu{
+    line-height: 2.8rem;
+}
+.ant-menu-item{
+    font-size:1rem !important;
+    padding-left:1rem;
+    padding-right:1rem;
+}

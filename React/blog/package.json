@@ -1,20 +1,21 @@
 {
-  "name": "next-create",
+  "name": "blog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 80"
+    "start": "next start"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.3.0",
     "@zeit/next-css": "^1.0.1",
     "antd": "^4.8.4",
-    "axios": "^0.21.0",
     "babel-plugin-import": "^1.13.1",
-    "moment": "^2.29.1",
+    "markdown-navbar": "^1.4.3",
     "next": "10.0.2",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-markdown": "^5.0.3"
   }
 }

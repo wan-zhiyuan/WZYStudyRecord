@@ -1,0 +1,10 @@
+.ad_div {
+    margin-top: .5rem;
+}
+
+.ad_div div{
+    border-radius: .3rem;
+    margin-bottom: .2rem;
+    /* 不设置hidden  border-radius的效果会被图片遮挡掉*/
+    overflow: hidden;
+}
