@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
 import { Row, Col, Breadcrumb, Affix } from 'antd'
 import {
@@ -11,12 +11,16 @@ import Author from '../components/Author'
 import Advert from '../components/Advert'
 import Footer from '../components/Footer'
 import '../static/style/pages/detailed.css'
-import ReactMarkdown from 'react-markdown'
 import MarkNav from 'markdown-navbar';
 import 'markdown-navbar/dist/navbar.css';
+import axios from 'axios'
 
-const article = 
-`# Markdown-Navbar Demo
+import marked from 'marked'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/monokai-sublime.css'
+
+const article =
+  `# Markdown-Navbar Demo
 
 ## p01.Chicken Chicken
 
@@ -66,99 +70,97 @@ Chicken Chicken Chicken Chicken Chicken.
 
 Chicken Chicken Chicken Chicken Chicken Chicken.
 `
-;
+  ;
 
-let markdown =
-  '' +
-  '## p01:课程介绍和环境搭建\n' +
-  '[ **M** ] arkdown + E [ **ditor** ] = **Mditor**  \n' +
-  '> Mditor 是一个简洁、易于集成、方便扩展、期望舒服的编写 markdown 的编辑器，仅此而已... \n\n' +
-  '**这是加粗的文字**\n\n' +
-  '*这是倾斜的文字*`\n\n' +
-  '***这是斜体加粗的文字***\n\n' +
-  '~~这是加删除线的文字~~ \n\n' +
-  '\`console.log(111)\` \n\n' +
-  '## p02:来个Hello World 初始Vue3.0\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n' +
-  '***\n\n\n' +
-  '## p03:Vue3.0基础知识讲解\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n\n' +
-  '## p04:Vue3.0基础知识讲解\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n\n' +
-  '## p05:Vue3.0基础知识讲解\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n\n' +
-  '## p06:Vue3.0基础知识讲解\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n\n' +
-  '## p07:Vue3.0基础知识讲解\n' +
-  '> aaaaaaaaa\n' +
-  '>> bbbbbbbbb\n' +
-  '>>> cccccccccc\n\n' +
-  '``` var a=11; ```'
 
-const Detailed = () => (
-  <>
-    <Head>
-      <title>Detailed</title>
-    </Head>
-    <Header />
-    <Row className="comm_main" type="flex" justify="center">
-      <Col className="comm_left" xs={24} sm={24} md={16} lg={18} xl={14}  >
-        <div>
-          <div className="bread_div">
-            <Breadcrumb>
-              <Breadcrumb.Item><a href="/">首页</a></Breadcrumb.Item>
-              <Breadcrumb.Item>视频列表</Breadcrumb.Item>
-              <Breadcrumb.Item>xxxx</Breadcrumb.Item>
-            </Breadcrumb>
-          </div>
+
+const Detailed = (props) => {
+  console.log('======>', props)
+
+  const renderer = new marked.Renderer()
+
+  marked.setOptions({
+    renderer: renderer,
+    gfm: true,
+    pedantic:false, // 容错机制  false表示可容错
+    sanitize: false, // 原始输出是否忽略html标签 false表示不忽略
+    tables: true, // 是否允许输出github样式的表格 必须gfm设置未true才能生效
+    breaks: false, // 是否支持github样式的换行符 必须gfm设置为true才能生效
+    smartLists: true,
+    smartypants: false,
+    highlight:function(code){
+      return hljs.highlightAuto(code).value
+    }
+  })
+
+  let html = marked(props.article_content)
+
+
+  return (
+    <>
+      <Head>
+        <title>Detailed</title>
+      </Head>
+      <Header />
+      <Row className="comm_main" type="flex" justify="center">
+        <Col className="comm_left" xs={24} sm={24} md={16} lg={18} xl={14}  >
           <div>
-            <div className='detailed_title'>
-              React+Next.js实战（持续更新中）
+            <div className="bread_div">
+              <Breadcrumb>
+                <Breadcrumb.Item><a href="/">首页</a></Breadcrumb.Item>
+                <Breadcrumb.Item>视频列表</Breadcrumb.Item>
+                <Breadcrumb.Item>xxxx</Breadcrumb.Item>
+              </Breadcrumb>
             </div>
-            <div className='list_icon center'>
-              <span><CalendarOutlined /> 2020-11-20</span>
-              <span><FolderOutlined /> 视频教程</span>
-              <span><FireOutlined /> 3144人</span>
+            <div>
+              <div className='detailed_title'>
+                React+Next.js实战（持续更新中）
             </div>
-            <div className='detailed_content'>
-              <ReactMarkdown
-                children={markdown}
-                allowDangerousHtml={false} />
+              <div className='list_icon center'>
+                <span><CalendarOutlined /> 2020-11-20</span>
+                <span><FolderOutlined /> 视频教程</span>
+                <span><FireOutlined /> 3144人</span>
+              </div>
+              <div className='detailed_content'
+              dangerouslySetInnerHTML={{__html:html}}
+              >
+                {/* <ReactMarkdown
+                  children={markdown}
+                  allowDangerousHtml={false} /> */}
+              </div>
             </div>
           </div>
-        </div>
-      </Col>
+        </Col>
 
-      <Col className="comm_right" xs={0} sm={0} md={7} lg={5} xl={4}>
-        <Author />
-        <Advert />
-        <Affix offsetTop={5}>
-          <div className='detail_nav comm_box'>
-            <div className='nav_title'>文章目录</div>
-            <MarkNav
-              className='article_menu'
-              source={markdown}
-              ordered={false} // 是否带编号
-            />
-          </div>
-        </Affix>
+        <Col className="comm_right" xs={0} sm={0} md={7} lg={5} xl={4}>
+          <Author />
+          <Advert />
+          <Affix offsetTop={5}>
+            <div className='detail_nav comm_box'>
+              <div className='nav_title'>文章目录</div>
+              <MarkNav
+                className='article_menu'
+                source={html}
+                ordered={false} // 是否带编号
+              />
+            </div>
+          </Affix>
 
-      </Col>
+        </Col>
 
-    </Row>
-    <Footer />
+      </Row>
+      <Footer />
+    </>
+  )
+}
+// 需要接收上个页面的参数，使用上下文context
+Detailed.getInitialProps = async (context) => {
+  console.log(context.query.id)
 
-  </>
-)
+  let id = context.query.id
+  const res = await axios('http://127.0.0.1:7001/default/getArticleById/' + id)
+  console.log('------>', res)
+  return res.data.data[0]
+}
 
 export default Detailed
