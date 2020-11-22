@@ -35,7 +35,7 @@ module.exports = appInfo => {
       // password
       password: '12345678',
       // database
-      database: 'react_blog',    
+      database: 'react_blog',
     },
     // load into app, default is open
     app: true,
@@ -45,14 +45,14 @@ module.exports = appInfo => {
 
   // 解决跨域时 设置安全机制配置
   config.security = {
-    scrf:{
+    scrf: {
       enbale: false,
     },
-    domainWhiteList:['*']
+    domainWhiteList: ['*']
   };
   config.cors = {
-    origin:'*', // 允许哪些域名可以跨域访问 这里设置所有
-    allowMethods:'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS' // 允许哪些方法跨域访问
+    origin: '*', // 允许哪些域名可以跨域访问 这里设置所有
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS' // 允许哪些方法跨域访问
   }
 
 
