@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloWorld</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Test 实例</h1>
+    <hr>
+    <div id="app">
+        <p>{{message}}</p>
+        <button v-on:click='reverseMessage'>反转消息</button>
+        <input v-model='message'>
+        <ol>
+            <todo-item v-for='item in groceryList' v-bind:todo='item' v-bind:key='item.id'></todo-item>
+        </ol>
+        <div v-bind:class='color'>test...</div>
+        <p>{{ number + 1}}</p>
+        <p>{{ ok ? 'YES' : 'NO' }}</p>
+        <p>{{ msg.split('').reverse().join('') }}</p>
+        <div @click='click1'>
+            <div @click.stop='click2'>
+                click me
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{ todo.text }}</li>'
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue.js!',
+                groceryList: [
+                    { id: 0, text: '蔬菜' },
+                    { id: 1, text: '奶酪' },
+                    { id: 2, text: '随便其他什么人吃的东西' },
+                ],
+                color: 'blue',
+                number: 10,
+                ok: false,
+                msg: 'vue',
+            },
+            methods: {
+                reverseMessage: function () {
+                    this.message = this.message.split('').reverse().join('')
+                },
+                click1: function () {
+                    console.log('click1')
+                },
+                click2: function () {
+                    console.log('click2')
+                },
+            }
+        })
+    </script>
+    <style type="text/css">
+        .red {
+            color: red
+        }
+        .blue {
+            color:blue; font-size: 100px;
+        }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloWorld</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Test1 实例</h1>
+    <hr>
+    <div id="app">
+        <!-- v-bind:class动态渲染样式 -->
+        <div class="test" v-bind:class='{ active: isActive, green: isGreen }'
+            style="width: 200px; height: 200px; text-align: center; line-height: 200px;">
+            hi vue
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+                isGreen: true,
+            },
+        })
+    </script>
+    <style type="text/css">
+        .test {
+            font-size: 40px;
+        }
+        .active {
+            background: #ff0000;
+        }
+        .green {
+            color: green;
+        }
+    </style>
+</body>
+
+</html>
