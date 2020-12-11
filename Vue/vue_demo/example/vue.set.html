@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+    <title>Vue.set 全局操作</title>
+</head>
+
+<body>
+    <h1>Vue.set 全局操作</h1>
+    <hr>
+    <div id="app">
+        <ul>
+            <li v-for=" aa in arr">{{aa}}</li>
+        </ul>
+        <p>{{count}}</p>
+        <p><button onClick='addCount1()'>外部改变数据count方法一</button></p>
+        <p><button onClick='addCount2()'>外部改变数据count方法二</button></p>
+        <p><button onClick='addCount3()'>外部改变数据count方法三</button></p>
+    </div>
+    <button onclick="add()">外部添加</button>
+
+    <script type="text/javascript">
+        // 当你利用索引直接设置一个项时，vue不会为我们自动更新
+        // 当你修改数组的长度时，vue不会为我们自动更新。
+        function add() {
+            console.log("我已经执行了");
+            app.arr[1] = 'ddd'; // 修改失败
+            //Vue.set(app.arr,1,'ddd'); // 修改成功
+        }
+        function addCount1() {
+            Vue.set(outData, 'count', 4)
+        }
+        function addCount2() {
+            app.count++
+        }
+        function addCount3() {
+            outData.count++
+        }
+        var outData = {
+            arr: ['aaa', 'bbb', 'ccc'],
+            count:1,
+        };
+        var app = new Vue({
+            el: '#app',
+            data: outData
+        })
+    </script>
+</body>
+
+</html>

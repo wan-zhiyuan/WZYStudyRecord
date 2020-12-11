@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloWorld</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>component-3</h1>
+    <hr>
+    <div id="app">
+        <panda></panda>
+    </div>
+    <script type="text/javascript">
+        // 父组件如何引用子组件
+        var cityComponent = {
+            template: `<div style="color:green;">siChuan of china</div>`,
+        }
+        var pandaComponent = {
+            template: `
+            <div style="color:blue;">
+            <p>Panda from china</p>
+            <city></city>
+            </div>
+            `,
+            components: {
+                'city': cityComponent
+            }
+        }
+        var app = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            components: {
+                'panda': pandaComponent
+            }
+        })
+    </script>
+
+</body>
+
+</html>

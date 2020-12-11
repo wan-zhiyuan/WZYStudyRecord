@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloWorld</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>component-1</h1>
+    <hr>
+    <div id="app">
+        <wanzy></wanzy>
+        <panda></panda>
+    </div>
+    <script type="text/javascript">
+        // 注册全局组件
+        Vue.component('wanzy',{
+            template:`<div style="color:red;">全局化注册的wanzy标签</div>`
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                
+            },
+            components:{
+                'panda':{
+                    template:`<div style="color:blue;">局部注册的panda标签</div>`
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
