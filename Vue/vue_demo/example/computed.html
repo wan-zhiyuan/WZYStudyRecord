@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloWorld</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>computed Option</h1>
+    <hr>
+    <div id="app">
+        <p>{{newPrice}}</p>
+        <ul>
+            <li v-for='item in reverNews'>{{item.title}}-{{item.data}}</li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var newsList =[
+            {title:'国务院港澳办就香港选举表态：林郑月娥符合标准',data:'2017/3/24'},
+            {title:'北京市宪法公益宣传片 为北京榜样点赞',data:'2017/3/25'},
+            {title:'中国这个唯一经济正增长,对世界意义重大',data:'2017/3/25'},
+            {title:'"十三五"经济社会发展新亮点:激活西部新动能',data:'2017/3/26'},
+        ]
+        var app = new Vue({
+            el:'#app',
+            data:{
+                price:100,
+                newsList:newsList,
+            },
+            computed:{
+                // 重新组合数据后输出
+                newPrice:function(){
+                    return this.price='￥' + this.price + '元'
+                },
+                // 反转后输出
+                reverNews:function(){
+                    return this.newsList.reverse();
+                }
+            }
+        })
+    </script>
+</body>
+</html>

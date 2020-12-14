@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelloWorld</title>
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>mixins Option</h1>
+    <hr>
+    <div id="app">
+        {{num}}
+        <!-- ${num} -->
+        <p><button @click='add'>add</button></p>
+    </div>
+    <script type="text/javascript">
+        var extendsObj={
+            updated:function(){
+                console.log('我是扩展的update')
+            },
+            methods:{
+                add:function(){
+                    console.log('我是被扩展出来的方法')
+                }
+            }
+        }
+        var app = new Vue({
+            el:'#app',
+            data:{
+                num:1
+            },
+            methods:{
+                add:function(){
+                    console.log('我是原生的方法')
+                    this.num++
+                }
+            },
+            updated:function(){
+                console.log('我是原生的update')
+            },
+            extends:extendsObj,
+            // delimiters:['${','}'] // 改变插值的符号
+        })
+    </script>
+</body>
+</html>

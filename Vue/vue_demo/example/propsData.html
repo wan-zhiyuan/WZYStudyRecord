@@ -9,17 +9,19 @@
 <body>
     <h1>propsData Option</h1>
     <hr>
-    <div id="app">
-        
-    </div>
+    <header></header>
     <script type="text/javascript">
-        // 实例化Vue对象
-        var app = new Vue({
-            el:'#app',
-            data:{
-                message:'hello world!'
-            }
-        })
+        var header_a = Vue.extend({
+            template:`<p>{{message}}-{{a}}</p>`,
+            data:function(){
+                return {
+                    message: 'Hello, I am header!'
+                }
+            },
+            props:[`a`],
+        });
+
+        new header_a({propsData:{a:1}}).$mount('header');
     </script>
 </body>
 </html>
