@@ -57,23 +57,47 @@
           <div class="goods-type">
             <el-tabs>
               <el-tab-pane label=" 汉堡 ">
-                <div>
                   <ul class="cookList">
-                    <li v-for="goods in type0Goods" :key="goods">
-                      <span class="foodImg"
-                        ><img
-                          :src="goods.goodsImg"
-                          width="100%"
-                      /></span>
-                      <span class="foodName">{{goods.goodsName}}</span>
-                      <span class="foodPrice">￥{{goods.price}}元</span>
+                    <li v-for="goods in type0Goods" :key="goods.id">
+                      <span class="foodImg">
+                        <img :src="goods.goodsImg" width="100%"/>
+                      </span>
+                      <span class="foodName">{{ goods.goodsName }}</span>
+                      <span class="foodPrice">￥{{ goods.price }}元</span>
                     </li>
                   </ul>
-                </div>
               </el-tab-pane>
-              <el-tab-pane label=" 小食 "> 小食 </el-tab-pane>
-              <el-tab-pane label=" 饮料 "> 饮料 </el-tab-pane>
-              <el-tab-pane label=" 套餐 "> 套餐 </el-tab-pane>
+              <el-tab-pane label=" 小食 ">
+                <ul class="cookList">
+                    <li v-for="goods in type1Goods" :key="goods.id">
+                      <span class="foodImg">
+                        <img :src="goods.goodsImg" width="100%"/>
+                      </span>
+                      <span class="foodName">{{ goods.goodsName }}</span>
+                      <span class="foodPrice">￥{{ goods.price }}元</span>
+                    </li>
+                  </ul>
+              </el-tab-pane>
+              <el-tab-pane label=" 饮料 ">
+                <ul class="cookList">
+                    <li v-for="goods in type2Goods" :key="goods.id">
+                      <span class="foodImg">
+                        <img :src="goods.goodsImg" width="100%"/>
+                      </span>
+                      <span class="foodName">{{ goods.goodsName }}</span>
+                      <span class="foodPrice">￥{{ goods.price }}元</span>
+                    </li>
+                  </ul>
+              </el-tab-pane>
+              <el-tab-pane label=" 套餐 "><ul class="cookList">
+                    <li v-for="goods in type3Goods" :key="goods.id">
+                      <span class="foodImg">
+                        <img :src="goods.goodsImg" width="100%"/>
+                      </span>
+                      <span class="foodName">{{ goods.goodsName }}</span>
+                      <span class="foodPrice">￥{{ goods.price }}元</span>
+                    </li>
+                  </ul></el-tab-pane>
             </el-tabs>
           </div>
         </el-col>
@@ -83,6 +107,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: "pos",
   data() {
@@ -109,121 +134,34 @@ export default {
           count: 1,
         },
       ],
-      oftenGoods: [
-        {
-          goodsId: 1,
-          goodsName: "香辣鸡腿堡",
-          price: 18,
-        },
-        {
-          goodsId: 2,
-          goodsName: "田园鸡腿堡",
-          price: 15,
-        },
-        {
-          goodsId: 3,
-          goodsName: "和风汉堡",
-          price: 15,
-        },
-        {
-          goodsId: 4,
-          goodsName: "快乐全家桶",
-          price: 80,
-        },
-        {
-          goodsId: 5,
-          goodsName: "脆皮炸鸡腿",
-          price: 10,
-        },
-        {
-          goodsId: 6,
-          goodsName: "魔法鸡块",
-          price: 20,
-        },
-        {
-          goodsId: 7,
-          goodsName: "可乐大杯",
-          price: 10,
-        },
-        {
-          goodsId: 8,
-          goodsName: "雪顶咖啡",
-          price: 18,
-        },
-        {
-          goodsId: 9,
-          goodsName: "大块鸡米花",
-          price: 15,
-        },
-        {
-          goodsId: 20,
-          goodsName: "香脆鸡柳",
-          price: 17,
-        },
-      ],
-      type0Goods: [
-        {
-          goodsId: 1,
-          goodsImg: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.meituan.net%2Fmogu%2F5bdad7d96d61fb34070d7846b63ae15f47365.jpg&refer=http%3A%2F%2Fp1.meituan.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611235107&t=a42a813e0f66860cfacbf94b01045a82",
-          goodsName: "香辣鸡腿堡",
-          price: 18,
-        },
-        {
-          goodsId: 2,
-          goodsImg: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.meituan.net%2Fmogu%2F5bdad7d96d61fb34070d7846b63ae15f47365.jpg&refer=http%3A%2F%2Fp1.meituan.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611235107&t=a42a813e0f66860cfacbf94b01045a82",
-          goodsName: "田园鸡腿堡",
-          price: 15,
-        },
-        {
-          goodsId: 3,
-          goodsImg: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.meituan.net%2Fmogu%2F5bdad7d96d61fb34070d7846b63ae15f47365.jpg&refer=http%3A%2F%2Fp1.meituan.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611235107&t=a42a813e0f66860cfacbf94b01045a82",
-          goodsName: "和风汉堡",
-          price: 15,
-        },
-        {
-          goodsId: 4,
-          goodsImg: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.meituan.net%2Fmogu%2F5bdad7d96d61fb34070d7846b63ae15f47365.jpg&refer=http%3A%2F%2Fp1.meituan.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611235107&t=a42a813e0f66860cfacbf94b01045a82",
-          goodsName: "快乐全家桶",
-          price: 80,
-        },
-        {
-          goodsId: 5,
-          goodsImg: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.meituan.net%2Fmogu%2F5bdad7d96d61fb34070d7846b63ae15f47365.jpg&refer=http%3A%2F%2Fp1.meituan.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611235107&t=a42a813e0f66860cfacbf94b01045a82",
-          goodsName: "脆皮炸鸡腿",
-          price: 10,
-        },
-        {
-          goodsId: 6,
-          goodsImg: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fp1.meituan.net%2Fmogu%2F5bdad7d96d61fb34070d7846b63ae15f47365.jpg&refer=http%3A%2F%2Fp1.meituan.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611235107&t=a42a813e0f66860cfacbf94b01045a82",
-          goodsName: "魔法鸡块",
-          price: 20,
-        },
-        {
-          goodsId: 7,
-          goodsImg: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2034255550,2966527390&fm=26&gp=0.jpg",
-          goodsName: "可乐大杯",
-          price: 10,
-        },
-        {
-          goodsId: 8,
-          goodsImg: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2034255550,2966527390&fm=26&gp=0.jpg",
-          goodsName: "雪顶咖啡",
-          price: 18,
-        },
-        {
-          goodsId: 9,
-          goodsImg: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2034255550,2966527390&fm=26&gp=0.jpg",
-          goodsName: "大块鸡米花",
-          price: 15,
-        },
-        {
-          goodsId: 20,
-          goodsImg: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2034255550,2966527390&fm=26&gp=0.jpg",
-          goodsName: "香脆鸡柳",
-          price: 17,
-        },
-      ],
+      oftenGoods: [],
+      type0Goods:[],
+      type1Goods:[],
+      type2Goods:[],
+      type3Goods:[],
     };
+  },
+  created:function(){
+    axios.get('https://www.fastmock.site/mock/0bf6a5bae7eab8507e44b56191ddff36/vuepos/oftenGoods')
+    .then(response=>{
+      this.oftenGoods=response.data.oftenGoods
+    })
+    .catch(error=>{
+      console.log(error)
+      alert('网络错误，无法访问')
+    })
+    axios.get('https://www.fastmock.site/mock/0bf6a5bae7eab8507e44b56191ddff36/vuepos/typeGoods')
+    .then(response=>{
+      console.log(response)
+      this.type0Goods = response.data.data[0]
+      this.type1Goods = response.data.data[1]
+      this.type2Goods = response.data.data[2]
+      this.type3Goods = response.data.data[3]
+    })
+    .catch(error=>{
+      console.log(error)
+      alert('网络错误，无法访问')
+    })
   },
   mounted: function () {
     // 设置order-list的高度100%
@@ -267,11 +205,6 @@ export default {
 .goods-type {
   clear: both;
 }
-.test-div {
-  width: 200px;
-  height: 200px;
-  background-color: aquamarine;
-}
 .cookList li {
   list-style: none;
   width: 25%;
@@ -288,7 +221,9 @@ export default {
   float: left;
 }
 .foodImg {
-  width: 40%;
+  /* width: 40%; */
+  width: 80px;
+  height: 80px;
 }
 .foodName {
   font-size: 18px;
