@@ -9,7 +9,7 @@ const productSchema = Schema({
     image: String,
     price: Number,
     description: String,
-    manufacturer: { type: Object, ref: 'Manufacturer'}
+    manufacturer: { type: ObjectId, ref: 'Manufacturer'}
 });
 
 const manufacturerSchema = Schema({

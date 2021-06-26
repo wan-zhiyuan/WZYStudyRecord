@@ -3,9 +3,8 @@ const { Product } = Model;
 
 const productController = {
   all(req, res) {
-    console.log('2233');
     Product.find({})
-      // .populate('manufacturer')
+      .populate('manufacturer') // 连manufacturer表查询 可自动替换product表中的manufacturer字段
       .exec((err, products) => res.json(products))
   },
   byId(req, res) {

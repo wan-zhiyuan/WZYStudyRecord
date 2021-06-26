@@ -9,6 +9,7 @@ import Index from '@/pages/admin/Index'
 import New from '@/pages/admin/New'
 import Products from '@/pages/admin/Products'
 import Edit from '@/pages/admin/Edit'
+import Detail from '@/pages/detail'
 
 Vue.use(Router)
 
@@ -21,7 +22,7 @@ export default new Router({
     },
     {
       path: '/admin',
-      name: 'Admin',
+      // name: 'Admin', // 有子路由的时候，负路由不添加name属性
       component: Index,
       // 嵌套路由
       children: [
@@ -46,6 +47,11 @@ export default new Router({
       path: '/cart',
       name: 'Cart',
       component: Cart,
+    },
+    {
+      path: '/detail/:id',
+      name: 'Detail',
+      component: Detail,
     }
   ]
 })

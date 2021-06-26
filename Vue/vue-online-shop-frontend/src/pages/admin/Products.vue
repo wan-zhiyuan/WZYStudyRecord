@@ -13,7 +13,7 @@
 export default {
   computed: {
     product() {
-      return this.$store.state.products[1];
+      return this.$store.getters.allProducts[0]
     }
   }
 }
