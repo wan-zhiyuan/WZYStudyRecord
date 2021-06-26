@@ -1,6 +1,9 @@
 <template>
+<!-- 新建产品时 表单组件 -->
+<!-- 表单提交时触发saveProduct函数 -->
   <form @submit.prevent="saveProduct">
     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+      <!-- 元素块 创建商品所需要填写的相关信息 -->
       <div class="form-group">
         <label>Name</label>
         <input
@@ -71,7 +74,8 @@ export default {
   props: ['model', 'manufacturers', 'isEditing'],
   methods: {
     saveProduct() {
-      this.$emit('save-product', this.model)
+      // 触发父组件的save-product函数，并且把当前修改后的model数据传给父组件
+      this.$emit('save-product', this.model) 
     }
   }
 }

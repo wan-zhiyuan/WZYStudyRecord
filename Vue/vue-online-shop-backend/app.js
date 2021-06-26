@@ -46,7 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 导入子路由中间件
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api/v1', api);
+app.use('/api/v1', api); // 访问的时候 localhost:3000/api/v1/对应接口名称
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -26,14 +26,14 @@ export default new Router({
       // 嵌套路由
       children: [
         {
-          path: 'new',
-          name: 'New',
-          component: New,
-        },
-        {
           path: '',
           name: 'Products',
           component: Products,
+        },
+        {
+          path: 'new',
+          name: 'New',
+          component: New,
         },
         {
           path: 'edit/:id',
