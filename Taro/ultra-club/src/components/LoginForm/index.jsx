@@ -3,7 +3,7 @@ import { View, Form } from '@tarojs/components'
 import { AtButton, AtImagePicker } from 'taro-ui'
 import { useDispatch } from '@tarojs/redux'
 
-import { SET_LOGIN_INFO, SET_IS_OPENED } from '../../constants'
+import { SET_LOGIN_INFO, SET_IS_OPENED, LOGIN } from '../../constants'
 import './index.scss'
 
 // 普通登录 弹出的表单
@@ -58,14 +58,17 @@ export default function LoginForm() {
         // 3、修改store中的用户信息
         // 4、关闭弹出层
         const userInfo = { avatar: files[0].url, nickName: formNickName}
+
         setFiles([])
         setFormNickName('')
 
         await Taro.setStorage({ key: 'userInfo', data: userInfo})
 
-        dispatch({ type: SET_LOGIN_INFO, payload: userInfo})
-
-        dispatch({ type: SET_IS_OPENED, payload: { isOpened: false}})
+        // 老：
+        // dispatch({ type: SET_LOGIN_INFO, payload: userInfo})
+        // dispatch({ type: SET_IS_OPENED, payload: { isOpened: false}})
+        // 新：向小程序云发起登录请求
+        dispatch({ type: LOGIN, payload: { userInfo: userInfo } })
     }
 
     return (

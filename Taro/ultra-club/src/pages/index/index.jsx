@@ -36,6 +36,13 @@ export default function Index() {
     }
 
     getStorage()
+
+    const WeappEnv = Taro.getEnv() === Taro.ENV_TYPE.WEAPP
+    if (WeappEnv) {
+      // 初始化小程序云环境
+      Taro.cloud.init()
+    }
+
   })
 
   function setIsOpened(isOpened) {

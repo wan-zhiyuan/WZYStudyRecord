@@ -39,13 +39,7 @@ export default function Footer(props) {
                 title='登录'
                 onClose={() => dispatch({type: SET_IS_OPENED, payload:{ isOpened: false}})}
             >
-                <LoginForm
-                    // formNickName={formNickName}
-                    // files={files}
-                    // handleSubmit={e => handleSubmit(e)}
-                    // handleNickNameInput={e => setFormNickName(e.target.value)}  // 昵称变化时触发
-                    // handleFilesSelect={files => setFiles(files)}                // 头像图片文件变化时触发
-                />
+                <LoginForm />
             </AtFloatLayout>
         </View>
     )
