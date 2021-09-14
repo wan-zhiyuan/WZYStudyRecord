@@ -5,12 +5,12 @@ import { useSelector, useDispatch } from '@tarojs/redux'
 
 import { PostCard, PostForm } from '../../components'
 import './index.scss'
-import { SET_POST_FORM_IS_OPENED, SET_LOGIN_INFO } from '../../constants'
+import { SET_POST_FORM_IS_OPENED, SET_LOGIN_INFO, GET_POSTS } from '../../constants'
 
 
 // Hooks方式写法
 export default function Index() {
-  const posts = useSelector(state => state.post.posts)
+  const posts = useSelector(state => state.post.posts) || []
   const isOpened = useSelector(state => state.post.isOpened)
   const nickName = useSelector(state => state.user.nickName)
 
@@ -19,31 +19,46 @@ export default function Index() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    async function getStorage() {
-      try {
-        const { data } = await Taro.getStorage({ key: 'userInfo' })
-
-        const { nickName, avatar } = data
-        console.log(data)
-        console.log('nickName:' + nickName)
-        console.log('avatar:' + avatar)
-
-        // 更新 Redux Store 数据
-        dispatch({ type: SET_LOGIN_INFO, payload: { nickName, avatar } })
-      } catch (err) {
-        console.log('getStorage ERR: ', err)
-      }
-    }
-
-    getStorage()
-
     const WeappEnv = Taro.getEnv() === Taro.ENV_TYPE.WEAPP
     if (WeappEnv) {
       // 初始化小程序云环境
       Taro.cloud.init()
     }
 
-  })
+    async function getStorage() {
+      try {
+        const { data } = await Taro.getStorage({ key: 'userInfo' })
+
+        const { nickName, avatar, _id } = data
+        console.log(data)
+        console.log('nickName:' + nickName)
+        console.log('avatar:' + avatar)
+
+        // 更新 Redux Store 数据
+        dispatch({ type: SET_LOGIN_INFO, payload: { nickName, avatar, userId: _id } })
+      } catch (err) {
+        console.log('getStorage ERR: ', err)
+      }
+    }
+    if (!isLogged) {
+      getStorage()
+    }
+
+    async function getPosts() {
+      try {
+        dispatch({
+          type: GET_POSTS,
+        })
+      } catch (err) {
+        console.log('getPosrs ERR:', err);
+      }
+    }
+
+    // 本地store中posts数据为空的时候，请求云端数据
+    if (!posts.length) {
+      getPosts()
+    }
+  },[])
 
   function setIsOpened(isOpened) {
     dispatch({ type: SET_POST_FORM_IS_OPENED, payload: { isOpened } })
@@ -60,34 +75,6 @@ export default function Index() {
     }
   }
 
-  console.log('posts', posts)
-
-
-  // const [posts, setPosts] = useState([
-  //   {
-  //     title: '泰罗奥特曼',
-  //     content: '泰罗是奥特之父和奥特之母唯一的亲生儿子。'
-  //   },
-  // ])
-  // const [formTitle, setFormTitle] = useState('')
-  // const [formContent, setFormContent] = useState('')
-  // const [isOpened, setIsOpened] = useState(false)
-
-  // function handleSubmit(e) {
-  //   e.preventDefault()
-
-  //   const newPosts = posts.concat({ title: formTitle, content: formContent })
-  //   setPosts(newPosts)
-  //   setFormTitle('')
-  //   setFormContent('')
-  //   setIsOpened(false)
-
-  //   Taro.atMessage({
-  //     message: '发表文章成功',
-  //     type: 'success',
-  //   })
-  // }
-
   return (
     <View className='index'>
       <AtMessage />
@@ -95,7 +82,7 @@ export default function Index() {
         return (
           // 暂时使用
           // <PostCard key={'_id' + index}  title={item.title} content={item.content} isList/>
-          <PostCard key={'_id' + index} postId={index} post={post} isList />
+          <PostCard key={post._id} postId={post._id} post={post} isList />
         )
       })}
       <AtFloatLayout

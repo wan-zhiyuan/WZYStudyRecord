@@ -22,6 +22,7 @@ export default function LogoutButton(props) {
                 payload: {
                     avatar: '',
                     nickName: '',
+                    userId: '',
                 }
             })
         } catch (err) {

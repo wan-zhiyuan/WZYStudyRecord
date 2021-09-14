@@ -3,7 +3,7 @@ import { Button, } from '@tarojs/components'
 import { useDispatch } from '@tarojs/redux'
 
 import './index.scss'
-import { SET_LOGIN_INFO } from '../../constants'
+import { LOGIN } from '../../constants'
 
 // 微信登录按钮
 export default function LoginButton() {
@@ -15,28 +15,35 @@ export default function LoginButton() {
         setIsLogin(true)
 
         const { avatarUrl, nickName } = e.detail.userInfo
+        const userInfo = { avatar: avatarUrl, nickName }
 
-        // await props.setLoginInfo(avatarUrl, nickName) 
-        // 此方法实现在mine组件中：
-        // 1、实现storage存储用户信息
-        // 2、更新mine页面的avatar nickname状态值
-        try {
-            await Taro.setStorage({
-                key: 'userInfo',
-                data: {
-                    avatar: avatarUrl,
-                    nickName
-                },
-            })
-        } catch (err) {
-            console.log('setStorage ERR: ', err)
-        }
+        // 老
+        // try {
+        //     await Taro.setStorage({
+        //         key: 'userInfo',
+        //         data: {
+        //             avatar: avatarUrl,
+        //             nickName
+        //         },
+        //     })
+        // } catch (err) {
+        //     console.log('setStorage ERR: ', err)
+        // }
 
+        // dispatch({
+        //     type: SET_LOGIN_INFO,
+        //     payload: {
+        //         avatar: avatarUrl,
+        //         nickName,
+        //     }
+        // })
+
+
+        // 新 （包含了请求登录、存storage、本地登录数据修改）
         dispatch({
-            type: SET_LOGIN_INFO,
+            type: LOGIN,
             payload: {
-                avatar: avatarUrl,
-                nickName,
+                userInfo
             }
         })
 

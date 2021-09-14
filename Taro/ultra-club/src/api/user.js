@@ -13,10 +13,10 @@ async function login(userInfo) {
                 },
             })
 
-            return result.user
+            return result.user // 接口返回为 { user, }
         }
     } catch (err) {
-        console.log('login ERR:',err);
+        console.error('login ERR:',err);
     }
 
 }

@@ -1,2 +1,3 @@
 import userApi from './user'
-export { userApi }
+import postApi from './post'
+export { userApi, postApi }

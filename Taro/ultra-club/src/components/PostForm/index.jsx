@@ -1,14 +1,14 @@
 import Taro, { useState } from '@tarojs/taro'
 import { View, Form, Input, Textarea } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
-import { useDispatch, useSelector }  from '@tarojs/redux'
+import { useDispatch, useSelector } from '@tarojs/redux'
 
 import './index.scss'
-import { SET_POSTS, SET_POST_FORM_IS_OPENED } from '../../constants'
+import { SET_POSTS, SET_POST_FORM_IS_OPENED, CREATE_POST } from '../../constants'
 
 // 无状态组件：只处理父组件传值过来的props
 // 创建新帖子组件
-export default function PostForm(props) {
+export default function PostForm() {
     // 五个props参数
     // 1、formTitle 当前编辑中帖子的标题
     // 2、formContent   当前编辑中帖子的内容
@@ -17,51 +17,66 @@ export default function PostForm(props) {
     // 5、handleContentInput    处理内容接收到用户输入时的回调函数
 
     // 只和此组件有关的使用useState管理
-    const [ formTitle, setFormTitle] = useState('')
-    const [ formContent, setFormContent] = useState('')
+    const [formTitle, setFormTitle] = useState('')
+    const [formContent, setFormContent] = useState('')
 
-    const nickName = useSelector(state => state.user.nickName)
-    const avatar = useSelector(state => state.user.avatar)
+    const userId = useSelector(state => state.user.userId)
+
+    // const nickName = useSelector(state => state.user.nickName)
+    // const avatar = useSelector(state => state.user.avatar)
 
     const dispatch = useDispatch()
 
-    // 提交 异步方法（dispatch函数是异步的吗?这里是否不需要使用async）
+    // 提交 
     async function handleSubmit(e) {
         e.preventDefault() // 禁止浏览器默认行为
 
-        if (!formTitle || ! formContent) {
+        if (!formTitle || !formContent) {
             Taro.atMessage({
                 message: '您还有内容没有填写完哦',
                 type: 'warning',
-              })
-              return
+            })
+            return
         }
 
+        // 老
         // 添加新post
+        // dispatch({
+        //     type: SET_POSTS,
+        //     payload: {
+        //         post: {
+        //             title: formTitle,
+        //             content: formContent,
+        //             user: { nickName, avatar },
+        //         },
+        //     },
+        // })
+
+        // 新
         dispatch({
-            type: SET_POSTS,
+            type: CREATE_POST,
             payload: {
-                post: {
+                postData: {
                     title: formTitle,
                     content: formContent,
-                    user: { nickName, avatar },
                 },
-            },
+
+            }
         })
 
         setFormTitle('')
         setFormContent('')
 
-        // 关闭FloatLayout表单 更新isOpened属性
-        dispatch({
-            type: SET_POST_FORM_IS_OPENED,
-            payload: { isOpened: false },
-        })
+        // // 关闭FloatLayout表单 更新isOpened属性
+        // dispatch({
+        //     type: SET_POST_FORM_IS_OPENED,
+        //     payload: { isOpened: false },
+        // })
 
-        Taro.atMessage({
-            message: '发表文章成功',
-            type: 'success',
-          })
+        // Taro.atMessage({
+        //     message: '发表文章成功',
+        //     type: 'success',
+        // })
     }
 
     return (

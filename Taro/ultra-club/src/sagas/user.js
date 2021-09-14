@@ -19,8 +19,8 @@ function* login(userInfo) { // 这种写法，定义一个生成器函数
     try {
         const user = yield call(userApi.login, userInfo)
 
-        // 
-        yield Taro.setStorage({ key: 'userinfo', data: user })
+        // 用户信息缓存本地
+        yield Taro.setStorage({ key: 'userInfo', data: user })
 
         // 登录成功，发起成功的action
         yield put({ type: LOGIN_SUCCESS })
@@ -56,7 +56,7 @@ function* watchLogin() { // 监听为LOGIN的action
         console.log('#####################');
         console.log('payload', payload);
 
-        // yield fork(login, payload.userInfo)
+        yield fork(login, payload.userInfo)
     }
 }
 

@@ -6,3 +6,4 @@ export const SET_LOGIN_INFO = 'SET_LOGIN_INFO'
 export const LOGIN = 'LOGIN' // 监听登录动作
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS' // 更新登录成功信息
 export const LOGIN_ERROR = 'LOGIN_ERROR' // 更新登录失败信息
+export const LOGIN_NORMAL = 'LOGIN_NORMAL' // 用于设置登录状态的默认状态常量
