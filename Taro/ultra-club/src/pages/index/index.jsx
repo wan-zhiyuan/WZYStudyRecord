@@ -28,7 +28,7 @@ export default function Index() {
     async function getStorage() {
       try {
         const { data } = await Taro.getStorage({ key: 'userInfo' })
-
+        console.log('################');
         const { nickName, avatar, _id } = data
         console.log(data)
         console.log('nickName:' + nickName)
@@ -78,10 +78,8 @@ export default function Index() {
   return (
     <View className='index'>
       <AtMessage />
-      {posts.map((post, index) => {
+      {posts.map((post) => {
         return (
-          // 暂时使用
-          // <PostCard key={'_id' + index}  title={item.title} content={item.content} isList/>
           <PostCard key={post._id} postId={post._id} post={post} isList />
         )
       })}
@@ -90,13 +88,7 @@ export default function Index() {
         title="发表新文章"
         onClose={() => setIsOpened(false)}
       >
-        <PostForm
-        // formTitle={formTitle}
-        // formContent={formContent}
-        // handleSubmit={e => handleSubmit(e)}
-        // handleTitleInput={e => setFormTitle(e.target.value)}
-        // handleContentInput={e => setFormContent(e.target.value)}
-        />
+        <PostForm />
       </AtFloatLayout>
       <View className="post-button">
         <AtFab onClick={handleClickEdit}>

@@ -60,7 +60,7 @@ export default function PostForm() {
                     title: formTitle,
                     content: formContent,
                 },
-
+                userId
             }
         })
 

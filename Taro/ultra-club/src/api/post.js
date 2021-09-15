@@ -19,7 +19,7 @@ async function createPost(postData, userId) {
             return result.post // 接口返回为 { post: { ...newPost.data } }
         }
     } catch (err) {
-        console.error('createPost ERR:',err);
+        console.error('createPost ERR:', err);
     }
 }
 
@@ -31,7 +31,6 @@ async function getPosts() {
             const { result } = await Taro.cloud.callFunction({
                 name: 'getPosts',
             })
-
             return result.posts // { posts: data, }
         }
     } catch (err) {
@@ -39,9 +38,30 @@ async function getPosts() {
     }
 }
 
+async function getPost(postId) {
+    const isWeapp = Taro.getEnv() === Taro.ENV_TYPE.WEAPP
+
+    // 针对微信小程序使用小程序云函数，其他使用小程序 RESTful API
+    try {
+        if (isWeapp) {
+            const { result } = await Taro.cloud.callFunction({
+                name: 'getPost',
+                data: {
+                    postId,
+                },
+            })
+
+            return result.post // { post: data }
+        }
+    } catch (err) {
+        console.error('getPost ERR: ', err)
+    }
+}
+
 const postApi = {
     createPost,
     getPosts,
+    getPost,
 }
 
 export default postApi

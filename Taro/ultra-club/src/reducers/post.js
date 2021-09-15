@@ -30,21 +30,27 @@ const INITIAL_STATE = {
 
 export default function post(state = INITIAL_STATE, action) {
     switch (action.type) {
-        case SET_POST:
+        case SET_POST: {
             const { post } = action.payload
             return { ...state, post }
-        case SET_POSTS:
-            const { post } = action.payload
-            return { ...state, posts: state.posts.concat(post) }
-        case SET_POST_FORM_IS_OPENED:
+        }
+        case SET_POSTS: {
+            const { posts } = action.payload
+            return { ...state, posts: state.posts.concat(posts) }
+        }
+        case SET_POST_FORM_IS_OPENED: {
             const { isOpened } = action.payload
             return { ...state, isOpened }
-        case CREATE_POST:
+        }
+        case CREATE_POST: {
             return { ...state, postStatus: CREATE_POST, isPost: true }
-        case POST_SUCCESS:
+        }
+        case POST_SUCCESS: {
             return { ...state, postStatus: POST_SUCCESS, isPost: false }
-        case POST_ERROR:
+        }
+        case POST_ERROR: {
             return { ...state, postStatus: POST_ERROR, isPost: false }
+        }
         default:
             return state
     }

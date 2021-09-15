@@ -1,7 +1,7 @@
 import Taro, { useRouter, useEffect } from '@tarojs/taro' // useRouter 是 Taro 专有的 Hook，等同于页面为类时的 getCurrentInstance().router
 import { View } from '@tarojs/components'
 import { PostCard } from '../../components'
-import { useSelector } from '@tarojs/redux'
+import { useSelector, useDispatch } from '@tarojs/redux'
 import { GET_POST, SET_POST } from '../../constants'
 
 import './post.scss'
@@ -14,6 +14,7 @@ export default function Post() {
     const post = useSelector(state => state.post.post)
 
     useEffect(() => {
+        // 获取云端的port数据
         dispatch({
             type: GET_POST,
             payload: {
@@ -22,6 +23,7 @@ export default function Post() {
         })
 
         return () => {
+            // 组件销毁时 store存储当前port数据
             dispatch({ type: SET_POST, payload: { post: {} } })
         }
     }, [])

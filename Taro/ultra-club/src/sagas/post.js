@@ -3,6 +3,8 @@ import { call, put, take, fork } from 'redux-saga/effects'
 
 import { postApi } from '../api'
 import {
+    SET_POST,
+    GET_POST,
     GET_POSTS,
     CREATE_POST,
     POST_SUCCESS,
@@ -59,12 +61,10 @@ function* watchCreatePost() { // 监听CREATE_POST
     }
 }
 
-export { watchCreatePost }
-
 function* getPosts() {
     try {
         const posts = yield call(postApi.getPosts)
-
+        
         // 获取帖子成功
         yield put({ type: POST_SUCCESS })
 
@@ -92,4 +92,35 @@ function* watchGetPosts() {
     }
 }
 
-export { watchGetPosts }
+function* getPost(postId) {
+    try {
+        const post = yield call(postApi.getPost, postId)
+
+        // 获取帖子数据成功
+        yield put({ type: POST_SUCCESS })
+
+        // 更新 Redux store 数据
+        yield put({
+            type: SET_POST,
+            payload: {
+                post,
+            }
+        })
+
+    } catch (err) {
+        console.log('getPost ERR: ', err)
+
+        // 获取帖子失败，发起失败的 action
+        yield put({ type: POST_ERROR })
+    }
+}
+
+function* watchGetPost() {
+    while (true) {
+        const { payload } = yield take(GET_POST)
+
+        yield fork(getPost, payload.postId) // getPost函数的参数一：payload.postId
+    }
+}
+
+export { watchGetPost, watchCreatePost, watchGetPosts }
